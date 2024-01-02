@@ -1,0 +1,4 @@
+package fragment
+
+class MeFragment {
+}
