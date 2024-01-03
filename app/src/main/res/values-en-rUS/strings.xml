@@ -1,3 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">manage</string>
+    <string name="home_name">home</string>
+    <string name="community_name">community</string>
+    <string name="me_name">me</string>
 </resources>
