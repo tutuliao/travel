@@ -9,6 +9,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="horizontal">
+            <ImageView
+                android:id="@+id/circularImageView"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/girl"
+                android:scaleType="centerCrop"
+                android:layout_gravity="center"
+                android:shape="oval">
+            </ImageView> <!-- 替换为你的图片资源 -->
+
+        </LinearLayout>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
