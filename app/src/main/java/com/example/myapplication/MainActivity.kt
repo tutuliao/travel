@@ -1,7 +1,4 @@
 package com.example.myapplication
-import android.content.Context
-import android.content.res.Configuration
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
@@ -9,7 +6,7 @@ import com.example.myapplication.databinding.ActivityMainBinding
 import fragment.CommunityFragment
 import fragment.HomeFragment
 import fragment.MeFragment
-import java.util.Locale
+
 
 
 class MainActivity : AppCompatActivity() {

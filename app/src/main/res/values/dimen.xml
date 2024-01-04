@@ -9,6 +9,8 @@
     <dimen name="me_name_bottom">20dp</dimen>
     <dimen name="me_name_left">20dp</dimen>
     <dimen name="me_name_right">40dp</dimen>
+    <dimen name="me_modify_left">20dp</dimen>
+    <dimen name="me_gap">12dp</dimen>
 
     <!-- 定义字体尺寸 -->
     <dimen name="me_small_size">12sp</dimen>

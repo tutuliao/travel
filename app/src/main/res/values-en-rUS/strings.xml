@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">manage</string>
     <string name="home">home</string>
-    <string name="community">community</string>
+    <string name="community">collect</string>
     <string name="me">me</string>
 
     <!-- 我的页面数据 -->
