@@ -1,3 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- 定义间距尺寸 -->
+    <dimen name="me_icon_top">8dp</dimen>
+    <dimen name="me_icon_bottom">20dp</dimen>
+    <dimen name="me_icon_left">20dp</dimen>
+    <dimen name="me_icon_right">40dp</dimen>
+
+    <!-- 定义字体尺寸 -->
+    <dimen name="me_small_size">8sp</dimen>
+    <dimen name="me_medium_size">12sp</dimen>
+    <dimen name="me_large_size">20sp</dimen>
 </resources>

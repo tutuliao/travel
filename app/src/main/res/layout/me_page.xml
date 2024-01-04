@@ -10,10 +10,12 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:orientation="horizontal">
+            android:layout_height="0dp"
+            android:layout_weight="0.1">
+
+            <!-- 子项的宽度为match_parent，高度为设备屏幕高度的10% -->
             <ImageView
                 android:id="@+id/circularImageView"
                 android:layout_width="80dp"
@@ -21,10 +23,14 @@
                 android:src="@drawable/girl"
                 android:scaleType="centerCrop"
                 android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/me_icon_left"
+                android:layout_marginTop="@dimen/me_icon_top"
+                android:layout_marginBottom="@dimen/me_icon_bottom"
+                android:layout_marginRight="@dimen/me_icon_right"
                 android:shape="oval">
-            </ImageView> <!-- 替换为你的图片资源 -->
+            </ImageView>
 
-        </LinearLayout>
+        </RelativeLayout>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
