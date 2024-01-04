@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">民宿管理平台</string>
-    <string name="home_name">主页</string>
-    <string name="community_name">社区</string>
-    <string name="me_name">我的</string>
+    <string name="home">主页</string>
+    <string name="community">社区</string>
+    <string name="me">我的</string>
+
+    <!-- 我的页面数据 -->
+    <string name="me_name">hhh</string>
+    <string name="me_id">717990694</string>
 </resources>

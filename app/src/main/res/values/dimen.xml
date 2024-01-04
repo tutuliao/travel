@@ -5,9 +5,19 @@
     <dimen name="me_icon_bottom">20dp</dimen>
     <dimen name="me_icon_left">20dp</dimen>
     <dimen name="me_icon_right">40dp</dimen>
+    <dimen name="me_name_top">20dp</dimen>
+    <dimen name="me_name_bottom">20dp</dimen>
+    <dimen name="me_name_left">20dp</dimen>
+    <dimen name="me_name_right">40dp</dimen>
 
     <!-- 定义字体尺寸 -->
-    <dimen name="me_small_size">8sp</dimen>
-    <dimen name="me_medium_size">12sp</dimen>
-    <dimen name="me_large_size">20sp</dimen>
+    <dimen name="me_small_size">12sp</dimen>
+    <dimen name="me_medium_size">18sp</dimen>
+    <dimen name="me_large_size">28sp</dimen>
+
+    <!-- 定义长宽 -->、
+    <dimen name="me_icon_height">100dp</dimen>
+    <dimen name="me_icon_width">100dp</dimen>
+    <dimen name="me_name_height">40dp</dimen>
+    <dimen name="me_name_width">100dp</dimen>
 </resources>

@@ -3,12 +3,12 @@
 
     <item
         android:id="@+id/navigation_home"
-        android:title="@string/home_name"
+        android:title="@string/home"
         android:icon="@drawable/home" />
 
     <item
         android:id="@+id/navigation_hotel"
-        android:title="@string/community_name"
+        android:title="@string/community"
         android:icon="@drawable/hotel" />
 
     <item
