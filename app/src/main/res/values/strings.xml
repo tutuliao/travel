@@ -7,4 +7,11 @@
     <!-- 我的页面数据 -->
     <string name="me_name">hhh</string>
     <string name="me_id">717990694</string>
+
+    <!-- 登陆页面数据 -->
+    <string name="login_text">民宿管理平台</string>
+    <string name="login_enter">登录/注册</string>
+    <string name="login_input_id">请输入账号</string>
+    <string name="login_input_password">请输入密码</string>
+    <string name="login_title">添加账户</string>
 </resources>

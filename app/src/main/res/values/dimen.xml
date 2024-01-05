@@ -12,10 +12,17 @@
     <dimen name="me_modify_left">20dp</dimen>
     <dimen name="me_gap">12dp</dimen>
 
+    <dimen name="login_input_left">48dp</dimen>
+    <dimen name="login_input_right">30dp</dimen>
+    <dimen name="login_item_width">200dp</dimen>
     <!-- 定义字体尺寸 -->
     <dimen name="me_small_size">12sp</dimen>
     <dimen name="me_medium_size">18sp</dimen>
     <dimen name="me_large_size">28sp</dimen>
+
+    <dimen name="login_small_size">12sp</dimen>
+    <dimen name="login_medium_size">18sp</dimen>
+    <dimen name="login_large_size">28sp</dimen>
 
     <!-- 定义长宽 -->、
     <dimen name="me_icon_height">100dp</dimen>
