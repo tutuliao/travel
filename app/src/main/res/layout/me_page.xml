@@ -35,19 +35,8 @@
                    android:layout_width="match_parent"
                    android:layout_height="@dimen/me_icon_height"
                    android:orientation="vertical">
-                   <TextView
-                       android:id="@+id/me_name"
-                       android:layout_width="@dimen/me_name_width"
-                       android:layout_height="@dimen/me_name_height"
-                       android:text="@string/me_name"
-                       android:layout_marginLeft="@dimen/me_name_left"
-                       android:layout_marginTop="@dimen/me_name_top"
-                       android:layout_marginBottom="@dimen/me_name_bottom"
-                       android:layout_marginRight="@dimen/me_name_right"
-                       android:textSize="@dimen/me_large_size"
-                       android:textColor="@color/black">
-                   </TextView>
-
+                   <include android:id="@+id/me_name"
+                       layout="@layout/me_account"/>
                    <TextView
                        android:id="@+id/me_id"
                        android:layout_width="@dimen/me_name_width"
@@ -83,42 +72,30 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:layout_marginLeft="@dimen/me_modify_left">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="100dp"
-                        android:text="hhh"
-                        android:textSize="50sp"
-                        android:textColor="#ff0000"
-                        android:layout_gravity="center" />
+                    android:layout_marginStart="@dimen/me_account_item_left"
+                    android:orientation="horizontal">
+                    <include layout="@layout/me_account_icon"/>
+                    <include layout="@layout/me_account_text"/>
+                    <include layout="@layout/me_arrow_right"/>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:layout_marginLeft="@dimen/me_modify_left">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="100dp"
-                        android:text="hhh"
-                        android:textSize="50sp"
-                        android:textColor="#ff0000"
-                        android:layout_gravity="center" />
+                    android:layout_marginStart="@dimen/me_account_item_left"
+                    android:orientation="horizontal">
+                    <include layout="@layout/me_password_icon"/>
+                    <include layout="@layout/me_password_text"/>
+                    <include layout="@layout/me_arrow_right"/>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:layout_marginLeft="@dimen/me_modify_left">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="100dp"
-                        android:text="hhh"
-                        android:textSize="50sp"
-                        android:textColor="#ff0000"
-                        android:layout_gravity="center" />
+                    android:layout_marginLeft="@dimen/me_account_item_left"
+                    android:orientation="horizontal">
                 </LinearLayout>
             </LinearLayout>
         </RelativeLayout>

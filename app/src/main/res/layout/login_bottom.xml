@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Button
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/myButton"
+    android:id="@+id/loginButton"
     android:layout_width="@dimen/login_item_width"
     android:layout_height="wrap_content"
     android:text="@string/login_enter"

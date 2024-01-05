@@ -2,7 +2,7 @@
 <!-- res/layout/include_edit_text.xml -->
 <EditText
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/editText"
+    android:id="@+id/editIdText"
     android:layout_width="@dimen/login_item_width"
     android:layout_height="wrap_content"
     android:hint="@string/login_input_id"

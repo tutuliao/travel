@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/me_name"
+    android:layout_width="@dimen/me_name_width"
+    android:layout_height="@dimen/me_name_height"
+    android:text="@string/me_name"
+    android:layout_marginLeft="@dimen/me_name_left"
+    android:layout_marginTop="@dimen/me_name_top"
+    android:layout_marginBottom="@dimen/me_name_bottom"
+    android:layout_marginRight="@dimen/me_name_right"
+    android:textSize="@dimen/me_large_size"
+    android:textColor="@color/black">
+</TextView>

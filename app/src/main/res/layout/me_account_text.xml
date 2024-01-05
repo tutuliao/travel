@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/me_account"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/me_account_height"
+    android:text="@string/me_name"
+    android:textSize="@dimen/me_large_size"
+    android:scaleType="centerCrop"
+    android:layout_gravity="center"
+    android:layout_marginStart="@dimen/me_account_text_left">
+</TextView>
