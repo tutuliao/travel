@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ImageButton
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/account_change_bottom_width"
+    android:layout_height="@dimen/account_change_bottom_height"
+    android:src="@drawable/change"
+    android:scaleType="centerCrop"
+    android:layout_gravity="end"
+    android:layout_marginStart="@dimen/account_change_bottom_left"
+    android:layout_marginEnd="@dimen/account_change_bottom_right">
+</ImageButton>

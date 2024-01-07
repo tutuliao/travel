@@ -16,4 +16,7 @@
     <string name="login_input_id">Input account</string>
     <string name="login_input_password">Input password</string>
     <string name="login_title">Identity</string>
+
+    <!-- 登陆页面数据 -->
+
 </resources>

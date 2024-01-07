@@ -15,4 +15,7 @@
     <string name="login_input_id">请输入账号</string>
     <string name="login_input_password">请输入密码</string>
     <string name="login_title">添加账户</string>
+
+    <!-- 登陆页面数据 -->
+
 </resources>

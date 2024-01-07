@@ -76,7 +76,9 @@
                     android:orientation="horizontal">
                     <include layout="@layout/me_account_icon"/>
                     <include layout="@layout/me_account_text"/>
-                    <include layout="@layout/me_arrow_right"/>
+                    <include
+                        android:id="@+id/me_account_change"
+                        layout="@layout/me_arrow_right"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -87,7 +89,9 @@
                     android:orientation="horizontal">
                     <include layout="@layout/me_password_icon"/>
                     <include layout="@layout/me_password_text"/>
-                    <include layout="@layout/me_arrow_right"/>
+                    <include
+                        android:id="@+id/me_password_change"
+                        layout="@layout/me_arrow_right"/>
                 </LinearLayout>
 
                 <LinearLayout
