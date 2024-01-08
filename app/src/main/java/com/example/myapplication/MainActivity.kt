@@ -20,6 +20,10 @@ class MainActivity : AppCompatActivity() {
         val binding: ActivityMainBinding = DataBindingUtil.setContentView(
             this, R.layout.activity_main
         )
+
+        //隐藏actionbar
+        supportActionBar?.hide()
+
         // 默认显示 HomeFragment
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, homeFragment)

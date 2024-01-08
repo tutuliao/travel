@@ -13,6 +13,7 @@ class LoginActivity: AppCompatActivity() {
 
         //隐藏actionbar
         supportActionBar?.hide()
+
         binding.bottom.setOnClickListener{
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)

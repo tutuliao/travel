@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.example.myapplication.R
 import androidx.databinding.DataBindingUtil
 import com.example.myapplication.AccountChangeActivity
+import com.example.myapplication.PasswordChangeActivity
 import com.example.myapplication.databinding.MePageBinding
 
 class MeFragment : Fragment(R.layout.me_page){
@@ -34,7 +35,12 @@ class MeFragment : Fragment(R.layout.me_page){
         binding.meAccountChange.setOnClickListener{
             val intent = Intent(requireActivity(), AccountChangeActivity::class.java)
             startActivity(intent)
-
         }
+
+        binding.mePasswordChange.setOnClickListener{
+            val intent = Intent(requireActivity(), PasswordChangeActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 }

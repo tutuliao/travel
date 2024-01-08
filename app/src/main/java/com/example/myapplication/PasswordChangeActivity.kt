@@ -1,18 +1,17 @@
 package com.example.myapplication
+
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import com.example.myapplication.databinding.ActivityAccountChangeBinding
+import com.example.myapplication.databinding.ActivityPasswordChangeBinding
 
-
-class AccountChangeActivity: BaseActivity() {
+class PasswordChangeActivity: BaseActivity()  {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding : ActivityAccountChangeBinding = DataBindingUtil.setContentView(this,R.layout.activity_account_change)
+        val binding : ActivityPasswordChangeBinding = DataBindingUtil.setContentView(this,R.layout.activity_password_change)
         // 启用ActionBar显示返回按钮
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         //修改公共基类的title
-        setTitleText("修改账号")
+        setTitleText("修改密码")
         //修改按钮
         binding.bottom.setOnClickListener{
 
