@@ -1,6 +1,7 @@
 package fragment
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import androidx.databinding.DataBindingUtil
 import com.example.myapplication.AccountChangeActivity
 import com.example.myapplication.PasswordChangeActivity
 import com.example.myapplication.databinding.MePageBinding
+import service.API
 
 class MeFragment : Fragment(R.layout.me_page){
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,8 +33,10 @@ class MeFragment : Fragment(R.layout.me_page){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        val api = API.getInstance()
         binding.meAccountChange.setOnClickListener{
+            api.register("11111","11111")
+            Log.d("ss","sss")
             val intent = Intent(requireActivity(), AccountChangeActivity::class.java)
             startActivity(intent)
         }
