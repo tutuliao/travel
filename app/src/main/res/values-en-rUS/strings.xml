@@ -12,11 +12,11 @@
 
     <!-- 登陆页面数据 -->
     <string name="login_text">Homestay Management Platform</string>
-    <string name="login_enter">Login/Register</string>
+    <string name="login_enter">Login</string>
     <string name="login_input_id">Input account</string>
     <string name="login_input_password">Input password</string>
     <string name="login_title">Identity</string>
 
-    <!-- 登陆页面数据 -->
-
+    <!-- 注册页面数据 -->
+    <string name="register">register</string>
 </resources>

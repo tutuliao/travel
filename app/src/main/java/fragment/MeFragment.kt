@@ -1,7 +1,6 @@
 package fragment
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,7 +23,6 @@ class MeFragment : Fragment(R.layout.me_page){
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout using DataBindingUtil
           binding = DataBindingUtil.inflate(
             inflater, R.layout.me_page, container, false
         )
@@ -33,10 +31,11 @@ class MeFragment : Fragment(R.layout.me_page){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val api = API.getInstance()
+
         binding.meAccountChange.setOnClickListener{
             api.register("11111","11111")
-            Log.d("ss","sss")
             val intent = Intent(requireActivity(), AccountChangeActivity::class.java)
             startActivity(intent)
         }

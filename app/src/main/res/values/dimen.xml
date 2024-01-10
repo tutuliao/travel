@@ -18,6 +18,7 @@
     <dimen name="login_input_left">48dp</dimen>
     <dimen name="login_input_right">30dp</dimen>
     <dimen name="login_item_width">200dp</dimen>
+    <dimen name="login_bottom_width">120dp</dimen>
 
     <dimen name="account_change_bottom_left">50dp</dimen>
     <dimen name="account_change_bottom_right">20dp</dimen>

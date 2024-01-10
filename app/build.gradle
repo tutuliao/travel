@@ -10,7 +10,7 @@ android {
     defaultConfig {
         applicationId "com.example.myapplication"
         minSdk 26
-        targetSdk 33
+        targetSdk 27
         versionCode 1
         versionName "1.0"
 
@@ -37,6 +37,12 @@ android {
 }
 
 dependencies {
+
+
+
+    //json
+    implementation 'com.google.code.gson:gson:2.8.9'
+
 
     //网络请求
     implementation "com.squareup.okhttp3:okhttp:4.9.1"

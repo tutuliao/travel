@@ -1,7 +1,6 @@
 package com.example.myapplication
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.myapplication.databinding.ActivityLoginBinding
@@ -21,8 +20,13 @@ class LoginActivity: AppCompatActivity() {
         val binding : ActivityLoginBinding = DataBindingUtil.setContentView(this,R.layout.activity_login)
         supportActionBar?.hide() //隐藏actionbar
 
-        binding.bottom.setOnClickListener{
+        binding.loginBottom.setOnClickListener{
             val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.registerBottom.setOnClickListener{
+            val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
         }
     }

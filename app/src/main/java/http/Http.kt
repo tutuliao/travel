@@ -2,15 +2,18 @@ package http
 
 import okhttp3.Call
 import okhttp3.Callback
-import okhttp3.FormBody
 import okhttp3.Interceptor
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Response
 import okhttp3.ResponseBody.Companion.toResponseBody
-import service.API
+import okio.Buffer
 import java.io.IOException
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 import java.util.concurrent.TimeUnit
 
 class Interceptor : Interceptor {
@@ -19,11 +22,29 @@ class Interceptor : Interceptor {
         try {
             // 获取原始请求
             val originalRequest = chain.request()
-
+            // 记录请求时间
+            // 使用 DateTimeFormatter 格式化时间
+            // 获取当前时间
+            val currentTime = LocalTime.now()
+            val formatter = DateTimeFormatter.ofPattern("HH:mm")
+            val formattedTime = currentTime.format(formatter)
             // 打印请求信息
             println("-------------------------打印请求信息-------------------------")
             println("请求链接: ${originalRequest.url}")
             println("请求方法: ${originalRequest.method}")
+            println("请求时间: $formattedTime")
+            //打印请求头
+            val headers = originalRequest.headers
+            for (i in 0 until headers.size) {
+                println("Header ${headers.name(i)}: ${headers.value(i)}")
+            }
+            // 打印请求体
+            val requestBody = originalRequest.body
+            if (requestBody != null) {
+                val buffer = Buffer()
+                requestBody.writeTo(buffer)
+                println("请求body内容: ${buffer.readUtf8()}")
+            }
 
             // 执行请求
             val response = chain.proceed(originalRequest)
@@ -90,13 +111,9 @@ class Http private constructor(){
     }
 
     // POST 请求方法
-    fun makePostRequest(url: String, formData: Map<String, String>, callback: Callback) {
-        // 构建请求体
-        val formBuilder = FormBody.Builder()
-        for ((key, value) in formData) {
-            formBuilder.add(key, value)
-        }
-        val requestBody: RequestBody = formBuilder.build()
+    fun makePostRequest(url: String, jsonData: String, callback: Callback) {
+        // 构建 JSON 请求体
+        val requestBody: RequestBody = jsonData.toRequestBody("application/json; charset=utf-8".toMediaType())
 
         // 构建 POST 请求
         val request = Request.Builder()

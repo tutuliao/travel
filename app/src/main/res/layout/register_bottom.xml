@@ -4,6 +4,6 @@
     android:id="@+id/loginButton"
     android:layout_width="@dimen/login_bottom_width"
     android:layout_height="wrap_content"
-    android:text="@string/login_enter"
+    android:text="@string/register"
     android:background="@drawable/input_border"
     android:layout_centerInParent="true"/>

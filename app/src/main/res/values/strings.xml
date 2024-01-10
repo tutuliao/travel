@@ -11,11 +11,11 @@
 
     <!-- 登陆页面数据 -->
     <string name="login_text">民宿管理平台</string>
-    <string name="login_enter">登录/注册</string>
+    <string name="login_enter">登录</string>
     <string name="login_input_id">请输入账号</string>
     <string name="login_input_password">请输入密码</string>
     <string name="login_title">添加账户</string>
 
-    <!-- 登陆页面数据 -->
-
+    <!-- 注册页面数据 -->
+    <string name="register">注册</string>
 </resources>
