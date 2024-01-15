@@ -20,25 +20,28 @@
             <include layout="@layout/login_title"/>
         </RelativeLayout>
         <RelativeLayout
-            android:id="@+id/id_input"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1">
-            <include layout="@layout/login_input_id"/>
+            <include
+                android:id="@+id/login_account"
+                layout="@layout/login_input_id"/>
         </RelativeLayout>
         <RelativeLayout
-            android:id="@+id/password_input"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1">
-            <include layout="@layout/login_input_password"/>
+            <include
+                android:id="@+id/login_password"
+                layout="@layout/login_input_password"/>
         </RelativeLayout>
         <RelativeLayout
-            android:id="@+id/login_bottom"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1">
-            <include layout="@layout/login_bottom"/>
+            <include
+                android:id="@+id/bottom"
+                layout="@layout/login_bottom"/>
         </RelativeLayout>
         <RelativeLayout
             android:id="@+id/register_bottom"

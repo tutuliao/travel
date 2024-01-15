@@ -12,7 +12,8 @@ class MyCallback : Callback {
     private var code = 0;
     override fun onResponse(call: Call, response: Response){
         // 处理成功的响应
-        println("请求成功: ${response.body?.string()}")
+        println("--------------------请求成功: 下面是请求体--------------------")
+        println("请求体是: ${response.body?.string()}")
         code = response.code
     }
 
@@ -59,6 +60,15 @@ class API private constructor() {
         val jsonData = gson.toJson(formData)
         val url = baseUrl + registerText
         http.makePostRequest(url, jsonData, callback)
+        return callback.getStatusCode()
+    }
+
+    //登陆
+    fun login(username: String, password: String) : Int{
+        val formData = mapOf("username" to username, "password" to password)
+        val jsonData = gson.toJson(formData)
+        val url = baseUrl + loginText
+        http.makePostRequest(url,jsonData,callback)
         return callback.getStatusCode()
     }
 }

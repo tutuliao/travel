@@ -20,10 +20,11 @@ class RegisterActivity:BaseActivity() {
         val api = API.getInstance()
         accountText = findViewById(R.id.register_account)
         passwordText = findViewById(R.id.register_password)
-        //添加注册按钮点击事件
+
+        //添加登录按钮点击事件
         binding.bottom.setOnClickListener{
             val username =  accountText.text.toString()     // 读取输入框内的内容
-            val password =  accountText.text.toString()
+            val password =  passwordText.text.toString()
             if(api.register(username,password) == 200){
                 Toast.showToast(this,"注册成功!")
             }else{
