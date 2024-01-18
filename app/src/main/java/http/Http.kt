@@ -16,7 +16,7 @@ import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import java.util.concurrent.TimeUnit
 
-class Interceptor : Interceptor {
+class HttpInterceptor : Interceptor {
     //拦截器
     override fun intercept(chain: Interceptor.Chain): Response {
         try {
@@ -75,14 +75,14 @@ class Interceptor : Interceptor {
     }
 }
 class Http private constructor(){
-
+    private var code = 0
     // 内部使用client的单例模式
     private val client: OkHttpClient by lazy {
         OkHttpClient.Builder()
-            .callTimeout(10, TimeUnit.SECONDS)
-            .connectTimeout(15, TimeUnit.SECONDS)  //连接超时时间
-            .readTimeout(15, TimeUnit.SECONDS)  //读取超时时间
-            .addInterceptor(Interceptor())  // 添加拦截器
+            .callTimeout(5, TimeUnit.SECONDS)
+            .connectTimeout(5, TimeUnit.SECONDS)  //连接超时时间
+            .readTimeout(5, TimeUnit.SECONDS)  //读取超时时间
+            .addInterceptor(HttpInterceptor())  // 添加拦截器
             .retryOnConnectionFailure(true)  //尝试重新连接
             .build()
     }
@@ -96,35 +96,52 @@ class Http private constructor(){
             return instance
         }
     }
+
     //Get请求方法
-    fun makeGetRequest(url: String, formData: Map<String, String>, callback: Callback) {
+    fun makeGetRequest(url: String, jsonData: String): Int {
         val request = Request.Builder()
             .url(url)
             .get()
             .build()
 
-        // 使用 OkHttpClient 创建 Call 对象
-        val call: Call = client.newCall(request)
+        // 使用 OkHttpClient 创建 Call 对象 异步执行请求
+        client.newCall(request).enqueue(callback)
 
-        // 异步执行请求
-        call.enqueue(callback)
+        return code
     }
 
     // POST 请求方法
-    fun makePostRequest(url: String, jsonData: String, callback: Callback) {
-        // 构建 JSON 请求体
-        val requestBody: RequestBody = jsonData.toRequestBody("application/json; charset=utf-8".toMediaType())
+    fun makePostRequest(url: String, jsonData: String): Int {
+            // 构建 JSON 请求体
+            val requestBody: RequestBody = jsonData.toRequestBody("application/json; charset=utf-8".toMediaType())
 
-        // 构建 POST 请求
-        val request = Request.Builder()
-            .url(url)
-            .post(requestBody)
-            .build()
+            // 构建 POST 请求
+            val request = Request.Builder()
+                .url(url)
+                .post(requestBody)
+                .build()
 
-        // 使用 OkHttpClient 创建 Call 对象
-        val call = client.newCall(request)
+        // 使用 OkHttpClient 创建 Call 对象 异步执行请求
+        client.newCall(request).enqueue(callback)
 
-        // 异步执行请求
-        call.enqueue(callback)
+        return code
+    }
+
+    private val callback = object : Callback {
+        override fun onFailure(call: Call, e: IOException) {
+            println("请求失败: ${e.message}")
+            code = call.execute().code // 在请求失败时更新 code
+        }
+
+        override fun onResponse(call: Call, response: Response) {
+            if (response.isSuccessful) {
+                val responseBodyString = response.body?.string()
+                code = response.code
+                println("请求成功，响应体: $responseBodyString")
+            } else {
+                code = response.code
+                println("请求失败，错误码: ${response.code}")
+            }
+        }
     }
 }

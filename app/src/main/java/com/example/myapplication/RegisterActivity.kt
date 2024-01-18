@@ -31,5 +31,6 @@ class RegisterActivity:BaseActivity() {
                 Toast.showToast(this,"注册失败!")
             }
         }
+
     }
 }

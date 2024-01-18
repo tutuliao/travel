@@ -22,7 +22,7 @@ class LoginActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding : ActivityLoginBinding = DataBindingUtil.setContentView(this,R.layout.activity_login)
         accountText = findViewById(R.id.login_account)                   
-        passwordText = findViewById(R.id.login_password)  // 读取输入框内的内容 先绑定 R.layout后才能找到输入框   x
+        passwordText = findViewById(R.id.login_password)  // 读取输入框内的内容 先绑定 R.layout后才能找到输入框
         supportActionBar?.hide() //隐藏actionbar
 
         binding.bottom.setOnClickListener{
@@ -32,7 +32,7 @@ class LoginActivity: AppCompatActivity() {
                 Toast.showToast(this,"登录成功!")
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
-            }else{
+            }else if(api.login(username,password)!=0){
                 Toast.showToast(this,"登录失败!")
             }
         }
