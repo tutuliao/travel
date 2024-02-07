@@ -101,14 +101,35 @@ class Http private constructor(){
     }
 
     //Get请求方法
-    fun makeGetRequest(url: String, jsonData: String) {
+    fun makeGetRequest(url: String): CompletableFuture<Int> {
+        val completableFuture = CompletableFuture<Int>()
+
+        // 构建 GET 请求
         val request = Request.Builder()
             .url(url)
-            .get()
+            .get() // 使用 GET 方法
             .build()
 
         // 使用 OkHttpClient 创建 Call 对象 异步执行请求
-        client.newCall(request).enqueue(callback)
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                println("请求失败: ${e.message}")
+                completableFuture.complete(call.execute().code)
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                if (response.isSuccessful) {
+                    val responseBodyString = response.body?.string()
+                    code = response.code
+                    println("请求成功，响应体: $responseBodyString")
+                } else {
+                    code = response.code
+                    println("请求失败，错误码: ${response.code}")
+                }
+                completableFuture.complete(code)
+            }
+        })
+        return completableFuture
     }
 
     // POST 请求方法
@@ -125,7 +146,6 @@ class Http private constructor(){
                 .build()
 
         // 使用 OkHttpClient 创建 Call 对象 异步执行请求
-        //client.newCall(request).enqueue(callback)
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 println("请求失败: ${e.message}")
@@ -147,21 +167,22 @@ class Http private constructor(){
         return completableFuture
     }
 
-     private val callback = object : Callback {
-        override fun onFailure(call: Call, e: IOException) {
-            println("请求失败: ${e.message}")
-            code = call.execute().code // 在请求失败时更新 code
-        }
-
-        override fun onResponse(call: Call, response: Response) {
-            if (response.isSuccessful) {
-                val responseBodyString = response.body?.string()
-                code = response.code
-                println("请求成功，响应体: $responseBodyString")
-            } else {
-                code = response.code
-                println("请求失败，错误码: ${response.code}")
-            }
-        }
-    }
+    //callback异步请求
+    // private val callback = object : Callback {
+    //    override fun onFailure(call: Call, e: IOException) {
+    //        println("请求失败: ${e.message}")
+    //        code = call.execute().code // 在请求失败时更新 code
+    //    }
+    //
+    //    override fun onResponse(call: Call, response: Response) {
+    //        if (response.isSuccessful) {
+    //            val responseBodyString = response.body?.string()
+    //            code = response.code
+    //            println("请求成功，响应体: $responseBodyString")
+    //        } else {
+    //            code = response.code
+    //            println("请求失败，错误码: ${response.code}")
+    //        }
+    //    }
+    //}
 }
