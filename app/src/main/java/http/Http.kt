@@ -14,6 +14,7 @@ import okio.Buffer
 import java.io.IOException
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
+import java.util.concurrent.CompletableFuture
 import java.util.concurrent.TimeUnit
 
 class HttpInterceptor : Interceptor {
@@ -75,7 +76,9 @@ class HttpInterceptor : Interceptor {
     }
 }
 class Http private constructor(){
+
     private var code = 0
+      
     // 内部使用client的单例模式
     private val client: OkHttpClient by lazy {
         OkHttpClient.Builder()
@@ -98,7 +101,7 @@ class Http private constructor(){
     }
 
     //Get请求方法
-    fun makeGetRequest(url: String, jsonData: String): Int {
+    fun makeGetRequest(url: String, jsonData: String) {
         val request = Request.Builder()
             .url(url)
             .get()
@@ -106,12 +109,12 @@ class Http private constructor(){
 
         // 使用 OkHttpClient 创建 Call 对象 异步执行请求
         client.newCall(request).enqueue(callback)
-
-        return code
     }
 
     // POST 请求方法
-    fun makePostRequest(url: String, jsonData: String): Int {
+    fun makePostRequest(url: String, jsonData: String): CompletableFuture<Int> {
+            //您可以考虑使用更加可靠的方式来处理异步响应，例如使用 CompletableFuture 或者 LiveData
+            val completableFuture = CompletableFuture<Int>()
             // 构建 JSON 请求体
             val requestBody: RequestBody = jsonData.toRequestBody("application/json; charset=utf-8".toMediaType())
 
@@ -122,12 +125,29 @@ class Http private constructor(){
                 .build()
 
         // 使用 OkHttpClient 创建 Call 对象 异步执行请求
-        client.newCall(request).enqueue(callback)
+        //client.newCall(request).enqueue(callback)
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                println("请求失败: ${e.message}")
+                completableFuture.complete(call.execute().code)
+            }
 
-        return code
+            override fun onResponse(call: Call, response: okhttp3.Response) {
+                if (response.isSuccessful) {
+                    val responseBodyString = response.body?.string()
+                    code = response.code
+                    println("请求成功，响应体: $responseBodyString")
+                } else {
+                    code = response.code
+                    println("请求失败，错误码: ${response.code}")
+                }
+                completableFuture.complete(code)
+            }
+        })
+        return completableFuture
     }
 
-    private val callback = object : Callback {
+     private val callback = object : Callback {
         override fun onFailure(call: Call, e: IOException) {
             println("请求失败: ${e.message}")
             code = call.execute().code // 在请求失败时更新 code

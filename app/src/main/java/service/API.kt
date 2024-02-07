@@ -2,6 +2,8 @@ package service
 
 import com.google.gson.Gson
 import http.Http
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 
 class API private constructor() {
@@ -34,16 +36,27 @@ class API private constructor() {
         val formData = mapOf("username" to username, "password" to password)
         val jsonData = gson.toJson(formData)
         val url = baseUrl + registerText
-        return http.makePostRequest(url, jsonData)
+        val completableFuture = http.makePostRequest(url, jsonData)
+        return completableFuture.get() // 阻塞等待异步操作完成，并返回结果
     }
 
     //登陆
+    //fun login(username: String, password: String): Int {
+    //    val formData = mapOf("username" to username, "password" to password)
+    //    val jsonData = gson.toJson(formData)
+    //    val url = baseUrl + loginText
+    //    return http.makePostRequest(url, jsonData)
+    //}
+
+    // 在 API 类中添加一个新的挂起函数 loginAsync
     fun login(username: String, password: String): Int {
-        val formData = mapOf("username" to username, "password" to password)
-        val jsonData = gson.toJson(formData)
-        val url = baseUrl + loginText
-        return http.makePostRequest(url, jsonData)
+            val formData = mapOf("username" to username, "password" to password)
+            val jsonData = gson.toJson(formData)
+            val url = baseUrl + loginText
+            val completableFuture = http.makePostRequest(url, jsonData)
+            return completableFuture.get() // 阻塞等待异步操作完成，并返回结果
     }
+
 }
 
 object GsonSingleton {
