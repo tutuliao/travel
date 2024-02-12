@@ -37,6 +37,8 @@ android {
 }
 
 dependencies {
+    //recyclerview效果类似于listview
+    implementation 'androidx.recyclerview:recyclerview:1.3.2'
 
     //json
     implementation 'com.google.code.gson:gson:2.8.9'
