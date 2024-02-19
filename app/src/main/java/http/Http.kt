@@ -77,6 +77,7 @@ class HttpInterceptor : Interceptor {
 }
 class Http private constructor(){
 
+    //okHttp封装
     private var code = 0
       
     // 内部使用client的单例模式
@@ -166,23 +167,4 @@ class Http private constructor(){
         })
         return completableFuture
     }
-
-    //callback异步请求
-    // private val callback = object : Callback {
-    //    override fun onFailure(call: Call, e: IOException) {
-    //        println("请求失败: ${e.message}")
-    //        code = call.execute().code // 在请求失败时更新 code
-    //    }
-    //
-    //    override fun onResponse(call: Call, response: Response) {
-    //        if (response.isSuccessful) {
-    //            val responseBodyString = response.body?.string()
-    //            code = response.code
-    //            println("请求成功，响应体: $responseBodyString")
-    //        } else {
-    //            code = response.code
-    //            println("请求失败，错误码: ${response.code}")
-    //        }
-    //    }
-    //}
 }

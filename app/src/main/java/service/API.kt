@@ -1,9 +1,5 @@
 package service
-
-import com.google.gson.Gson
 import http.Http
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
 
 class API private constructor() {
@@ -19,12 +15,11 @@ class API private constructor() {
     //调用封装的http单例
     private val http = Http.getInstance()
     //单例的gson对象
-    private val gson = GsonSingleton.instance
+    private val gson = GsonSingleton.gson
 
     // 在伴生对象中定义 API 的单例
     companion object {
         private val instance = API()
-
         // 提供一个全局可访问的方法获取单例
         fun getInstance(): API {
             return instance
@@ -40,15 +35,7 @@ class API private constructor() {
         return completableFuture.get() // 阻塞等待异步操作完成，并返回结果
     }
 
-    //登陆
-    //fun login(username: String, password: String): Int {
-    //    val formData = mapOf("username" to username, "password" to password)
-    //    val jsonData = gson.toJson(formData)
-    //    val url = baseUrl + loginText
-    //    return http.makePostRequest(url, jsonData)
-    //}
-
-    // 在 API 类中添加一个新的挂起函数 loginAsync
+    //登录
     fun login(username: String, password: String): Int {
             val formData = mapOf("username" to username, "password" to password)
             val jsonData = gson.toJson(formData)
@@ -57,8 +44,11 @@ class API private constructor() {
             return completableFuture.get() // 阻塞等待异步操作完成，并返回结果
     }
 
-}
-
-object GsonSingleton {
-    val instance: Gson by lazy { Gson() }
+    //登陆
+    //fun login(username: String, password: String): Int {
+    //    val formData = mapOf("username" to username, "password" to password)
+    //    val jsonData = gson.toJson(formData)
+    //    val url = baseUrl + loginText
+    //    return http.makePostRequest(url, jsonData)
+    //}
 }
