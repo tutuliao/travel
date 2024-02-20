@@ -35,7 +35,6 @@ class MeFragment : Fragment(R.layout.me_page){
         val api = API.getInstance()
 
         binding.meAccountChange.setOnClickListener{
-            api.register("11111","11111")
             val intent = Intent(requireActivity(), AccountChangeActivity::class.java)
             startActivity(intent)
         }

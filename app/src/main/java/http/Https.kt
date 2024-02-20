@@ -5,7 +5,6 @@ import okhttp3.OkHttpClient
 import okhttp3.Response
 import okhttp3.ResponseBody.Companion.toResponseBody
 import okio.Buffer
-import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
@@ -18,6 +17,7 @@ import java.util.concurrent.TimeUnit
 
 
 interface ApiService {
+    //test  api.register("11111","11111")
     @GET
     suspend fun getRequest(@Url url: String,jsonData: String): String
 
