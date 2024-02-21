@@ -1,8 +1,9 @@
 package model
 
-import androidx.databinding.BaseObservable
 
-class User : BaseObservable() {
-
-
+class User  {
+      var account : String = ""
+      var password : String = ""
+      var userName : String = ""
+      var imageUrl : String = ""
 }
