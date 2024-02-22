@@ -30,7 +30,7 @@ class LoginActivity: AppCompatActivity() {
         passwordText = findViewById(R.id.login_password)  // 读取输入框内的内容 先绑定 R.layout后才能找到输入框
         supportActionBar?.hide() //隐藏actionbar
 
-        binding.bottom.setOnClickListener{
+        binding.loginBottom.setOnClickListener{
             val username =  accountText.text.toString()
             val password =  passwordText.text.toString()
 
@@ -49,5 +49,9 @@ class LoginActivity: AppCompatActivity() {
             }
         }
 
+        binding.registerBottom.setOnClickListener {
+            val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
+        }
     }
 }
