@@ -14,11 +14,16 @@
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="250dp"/>
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+        <com.scwang.smart.refresh.layout.SmartRefreshLayout
+            android:id="@+id/smartRefresh"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/home_item_left"
-            android:layout_marginEnd="@dimen/home_item_right"/>
+            android:layout_height="match_parent">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/home_item_left"
+                android:layout_marginEnd="@dimen/home_item_right" />
+        </com.scwang.smart.refresh.layout.SmartRefreshLayout>
     </LinearLayout>
 </layout>

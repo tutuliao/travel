@@ -13,13 +13,18 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.PagerAdapter
 import com.example.myapplication.R
 import com.example.myapplication.databinding.HomePageBinding
+import com.scwang.smart.refresh.footer.ClassicsFooter
+import com.scwang.smart.refresh.header.ClassicsHeader
+import com.scwang.smart.refresh.layout.SmartRefreshLayout
 
 
 class HomeFragment : Fragment(R.layout.home_page){
     private lateinit var bannerAdapter: BannerAdapter
     private lateinit var recyclerView: RecyclerView // 声明 RecyclerView
     private lateinit var recyclerAdapter: RecyclerViewAdapter // 声明适配器
+    private lateinit var smartRefreshLayout : SmartRefreshLayout
     private var list: MutableList<String> = mutableListOf()//List 是不可变的 需要一个可变的列表（MutableList），您可以将列表声明为 MutableList 类型而不是 List 类型
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         for(i in 0 until 10){
@@ -41,20 +46,40 @@ class HomeFragment : Fragment(R.layout.home_page){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        //banner
         val images = listOf(R.drawable.hotel1, R.drawable.hotel2, R.drawable.hotel3)
         bannerAdapter = BannerAdapter(requireContext(), images)
         binding.viewPager.adapter = bannerAdapter
 
+        //创建线性布局 垂直方向 给RecyclerView设置布局管理器
         recyclerView = binding.recyclerView
         recyclerAdapter = RecyclerViewAdapter(requireContext(),list)
-        //创建线性布局
         val manager = LinearLayoutManager(context)
-        //垂直方向
         manager.orientation = LinearLayoutManager.VERTICAL;
-        //给RecyclerView设置布局管理器
         recyclerView.layoutManager = manager;
-        //创建适配器，并且设置
         recyclerView.adapter = recyclerAdapter;
+
+        //设置刷新样式
+        smartRefreshLayout = binding.smartRefresh
+        smartRefreshLayout.setRefreshHeader(ClassicsHeader(context))
+        smartRefreshLayout.setRefreshFooter(ClassicsFooter(context))
+        smartRefreshLayout.setOnRefreshListener{
+              list.clear()
+            for (i in 10 until 20) {
+                list.add(i.toString())
+            }
+            /*重新刷新列表控件的数据*/
+            recyclerAdapter.notifyItemRangeChanged(0, list.size)
+            smartRefreshLayout.finishRefresh(1000)
+        }
+
+        smartRefreshLayout.setOnLoadMoreListener{
+            for (i in 20 until 30){
+                list.add(i.toString())
+            }
+            recyclerAdapter.notifyItemRangeChanged(0, list.size)
+            smartRefreshLayout.finishRefresh(1000)
+        }
     }
 }
 
