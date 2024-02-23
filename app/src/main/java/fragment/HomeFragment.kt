@@ -22,6 +22,9 @@ class HomeFragment : Fragment(R.layout.home_page){
     private var list: MutableList<String> = mutableListOf()//List 是不可变的 需要一个可变的列表（MutableList），您可以将列表声明为 MutableList 类型而不是 List 类型
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        for(i in 0 until 10){
+           list.add("这是第${i}个测试")
+        }
     }
 
     private lateinit var binding: HomePageBinding
@@ -41,11 +44,7 @@ class HomeFragment : Fragment(R.layout.home_page){
         val images = listOf(R.drawable.hotel1, R.drawable.hotel2, R.drawable.hotel3)
         bannerAdapter = BannerAdapter(requireContext(), images)
         binding.viewPager.adapter = bannerAdapter
-        println("hhhhh")
 
-        for(i in 0 until 10){
-            list.add("这是第${i}个测试")
-        }
         recyclerView = binding.recyclerView
         recyclerAdapter = RecyclerViewAdapter(requireContext(),list)
         //创建线性布局
@@ -102,6 +101,6 @@ class RecyclerViewAdapter(private val context: Context, private val list: List<S
 
     // 内部类，绑定控件
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var textView: TextView = itemView.findViewById(R.id.text_view)
+        var textView: TextView = itemView.findViewById(R.id.title_view)
     }
 }

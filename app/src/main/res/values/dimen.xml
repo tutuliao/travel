@@ -23,6 +23,9 @@
     <dimen name="account_change_bottom_left">50dp</dimen>
     <dimen name="account_change_bottom_right">20dp</dimen>
 
+    <dimen name="home_item_left">8dp</dimen>
+    <dimen name="home_item_right">8dp</dimen>
+
     <!-- 定义字体尺寸 -->
     <dimen name="me_small_size">12sp</dimen>
     <dimen name="me_medium_size">18sp</dimen>
@@ -33,6 +36,9 @@
     <dimen name="login_large_size">28sp</dimen>
 
     <dimen name="account_change_small_size">20sp</dimen>
+
+    <dimen name="home_item_large_size">20sp</dimen>
+    <dimen name="home_item_medium_size">12sp</dimen>
 
     <!-- 定义长宽 -->
     <dimen name="me_icon_height">100dp</dimen>
@@ -45,4 +51,7 @@
     <dimen name="account_change_bottom_width">50dp</dimen>
     <dimen name="account_change_bottom_height">50dp</dimen>
 
+    <dimen name="home_item_height">120dp</dimen>
+    <dimen name="home_item_radius">16dp</dimen>
+    <dimen name="home_item_elevation">5dp</dimen>
 </resources>
