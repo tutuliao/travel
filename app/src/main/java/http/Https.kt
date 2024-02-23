@@ -2,9 +2,9 @@ package http
 
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import okhttp3.Response
 import okhttp3.ResponseBody.Companion.toResponseBody
 import okio.Buffer
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
@@ -16,18 +16,18 @@ import java.time.format.DateTimeFormatter
 import java.util.concurrent.TimeUnit
 
 
-interface ApiService {
+interface Service {
     //test  api.register("11111","11111")
     @GET
-    suspend fun getRequest(@Url url: String,jsonData: String): String
+    suspend fun getRequest(@Url url: String,jsonData: String): Response<String>
 
     @POST
-    suspend fun postRequest(@Url url: String,jsonData: String): String
+    suspend fun postRequest(@Url url: String,jsonData: String): Response<String>
 
 }
 class HttpsInterceptor : Interceptor {
     //拦截器
-    override fun intercept(chain: Interceptor.Chain): Response {
+    override fun intercept(chain: Interceptor.Chain): okhttp3.Response {
         try {
             // 获取原始请求
             val originalRequest = chain.request()
@@ -116,15 +116,15 @@ class RetrofitManager private constructor() {
         }
     }
 
-    val apiService: ApiService by lazy {
-        retrofit.create(ApiService::class.java)
+    val apiService: Service by lazy {
+        retrofit.create(Service::class.java)
     }
 
-    suspend fun makeGetRequest(url: String,jsonData: String): String {
+    suspend fun makeGetRequest(url: String,jsonData: String): Response<String> {
         return apiService.getRequest(url, jsonData)
     }
 
-    suspend fun makePostRequest(url: String,jsonData: String): String {
+    suspend fun makePostRequest(url: String,jsonData: String): Response<String> {
         return apiService.postRequest(url,jsonData)
     }
 

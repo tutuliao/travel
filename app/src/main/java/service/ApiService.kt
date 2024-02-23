@@ -6,7 +6,6 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
 import retrofit2.Response
 
 class ApiService private constructor() {
@@ -32,23 +31,24 @@ class ApiService private constructor() {
     // 阻塞等待异步操作完成，并返回结果
     //注册
     @OptIn(DelicateCoroutinesApi::class)
-    suspend fun register(username: String, password: String): String{
+    suspend fun register(username: String, password: String): Response<String> {
         return GlobalScope.async(Dispatchers.IO) {
             val formData = mapOf("username" to username, "password" to password)
             val jsonData = gson.toJson(formData)
-            RetrofitManager.getInstance().makePostRequest(registerText, jsonData)
+            https.makePostRequest(registerText, jsonData)
         }.await()
     }
 
     //登录
     @OptIn(DelicateCoroutinesApi::class)
-    suspend fun login(username: String, password: String): String {
+    suspend fun login(username: String, password: String): Response<String> {
         return GlobalScope.async(Dispatchers.IO) {
             val formData = mapOf("username" to username, "password" to password)
             val jsonData = gson.toJson(formData)
-            RetrofitManager.getInstance().makePostRequest(loginText, jsonData)
+            return@async https.makePostRequest(loginText, jsonData)
         }.await()
     }
+
 
 
 }

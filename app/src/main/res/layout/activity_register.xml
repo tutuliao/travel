@@ -34,11 +34,12 @@
                 layout="@layout/login_input_password"/>
         </RelativeLayout>
         <RelativeLayout
-            android:id="@+id/bottom"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1">
-            <include layout="@layout/register_bottom"/>
+            <include
+                android:id="@+id/register_bottom"
+                layout="@layout/register_bottom"/>
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="match_parent"
