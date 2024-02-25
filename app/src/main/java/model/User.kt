@@ -2,8 +2,11 @@ package model
 
 
 class User  {
-      var account : String = ""
+      var id : Int = 0
       var password : String = ""
       var userName : String = ""
-      var imageUrl : String = ""
+      var avatarId : Int = 0
+      var roleId : Int= 1
+      var isDelete : Int = 0
+
 }

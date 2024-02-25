@@ -1,28 +1,35 @@
 package http
-
+import model.User
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.ResponseBody
 import okhttp3.ResponseBody.Companion.toResponseBody
 import okio.Buffer
-import retrofit2.Response
+import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.GET
+import retrofit2.http.Body
+import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
-import retrofit2.http.Url
 import java.io.IOException
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import java.util.concurrent.TimeUnit
 
 
-interface Service {
-    //test  api.register("11111","11111")
-    @GET
-    suspend fun getRequest(@Url url: String,jsonData: String): Response<String>
+interface ApiService {
+    @POST("user/login")
+    fun loginUser(@Body user: User): Call<User>
 
-    @POST
-    suspend fun postRequest(@Url url: String,jsonData: String): Response<String>
+    @FormUrlEncoded
+    @POST("user/register")
+    fun register(
+        @Field("role") role: Int,
+        @Field("username") username: String,
+        @Field("password") password: String
+    ): Call<ResponseBody>
+
 
 }
 class HttpsInterceptor : Interceptor {
@@ -31,9 +38,6 @@ class HttpsInterceptor : Interceptor {
         try {
             // 获取原始请求
             val originalRequest = chain.request()
-            // 记录请求时间
-            // 使用 DateTimeFormatter 格式化时间
-            // 获取当前时间
             val currentTime = LocalTime.now()
             val formatter = DateTimeFormatter.ofPattern("HH:mm")
             val formattedTime = currentTime.format(formatter)
@@ -85,6 +89,8 @@ class HttpsInterceptor : Interceptor {
 }
 class RetrofitManager private constructor() {
 
+    private  val baseUrl = "http://42.193.127.135:8080/" //baseurl要以/结尾
+
     //Retrofit 可以使用 OkHttp 的拦截器来进行拦截和处理网络请求和响应。
     // 由于 Retrofit 底层使用 OkHttp 来执行网络请求，
     // 因此你可以通过在 OkHttp 客户端中添加拦截器来为 Retrofit 添加拦截器。
@@ -100,7 +106,7 @@ class RetrofitManager private constructor() {
     //内部调用的retrofit单例
     private val retrofit: Retrofit by lazy {
         Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(baseUrl)
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
@@ -108,24 +114,20 @@ class RetrofitManager private constructor() {
 
     //外部调用的retrofit实例
     companion object {
-        private const val BASE_URL = "http://42.193.127.135:8080"
         private val instance = RetrofitManager()
-
         fun getInstance(): RetrofitManager {
             return instance
         }
     }
 
-    val apiService: Service by lazy {
-        retrofit.create(Service::class.java)
+    // 提供ApiService实例的方法
+    private val apiService: ApiService by lazy {
+        retrofit.create(ApiService::class.java)
     }
 
-    suspend fun makeGetRequest(url: String,jsonData: String): Response<String> {
-        return apiService.getRequest(url, jsonData)
+    fun provideApiService(): ApiService {
+        return apiService
     }
 
-    suspend fun makePostRequest(url: String,jsonData: String): Response<String> {
-        return apiService.postRequest(url,jsonData)
-    }
 
 }
