@@ -5,8 +5,6 @@ import android.widget.EditText
 import androidx.databinding.DataBindingUtil
 import com.example.myapplication.databinding.ActivityRegisterBinding
 import http.RetrofitManager
-import kotlinx.coroutines.DelicateCoroutinesApi
-import model.RegisterData
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Response
@@ -16,7 +14,6 @@ class RegisterActivity:BaseActivity() {
 
     private lateinit var accountText: EditText
     private lateinit var passwordText: EditText
-    @OptIn(DelicateCoroutinesApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -27,6 +24,7 @@ class RegisterActivity:BaseActivity() {
         accountText = findViewById(R.id.register_account)
         passwordText = findViewById(R.id.register_password)
         val apiService = RetrofitManager.getInstance().provideApiService()
+
         //添加登录按钮点击事件
         binding.registerBottom.setOnClickListener{
             val username =  accountText.text.toString()     // 读取输入框内的内容
@@ -53,6 +51,7 @@ class RegisterActivity:BaseActivity() {
                 }
             })
         }
+
 
     }
 }

@@ -19,8 +19,12 @@ import java.util.concurrent.TimeUnit
 
 
 interface ApiService {
+    @FormUrlEncoded
     @POST("user/login")
-    fun loginUser(@Body user: User): Call<User>
+    fun login(
+        @Field("username") username: String,
+        @Field("password") password: String
+    ): Call<ResponseBody>
 
     @FormUrlEncoded
     @POST("user/register")
@@ -71,7 +75,7 @@ class HttpsInterceptor : Interceptor {
             val responseBody = response.body
             if (responseBody != null) {
                 val bodyString = responseBody.string()
-                println("响应body内容: $bodyString")
+                println("请求响应body内容: $bodyString")
 
                 // 重新构造响应体，因为 Response 的 body 只能读取一次
                 return response.newBuilder()
@@ -83,7 +87,7 @@ class HttpsInterceptor : Interceptor {
         } catch (e: IOException) {
             // 处理请求失败的情况
             println("请求失败: ${e.message}")
-            throw IOException("网络请求失败", e)
+            throw IOException("请求网络请求失败", e)
         }
     }
 }
