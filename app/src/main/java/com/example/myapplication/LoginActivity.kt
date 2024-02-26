@@ -6,11 +6,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.myapplication.databinding.ActivityLoginBinding
 import http.RetrofitManager
-import kotlinx.coroutines.DelicateCoroutinesApi
+import io.reactivex.Observer
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import okhttp3.ResponseBody
-import retrofit2.Call
 import retrofit2.Response
-import service.API
 import service.Toast
 
 
@@ -33,26 +34,56 @@ class LoginActivity: AppCompatActivity() {
         binding.loginBottom.setOnClickListener{
             val username =  accountText.text.toString()
             val password =  passwordText.text.toString()
-
-            val registerCall = apiService.login(username,password)
-            registerCall.enqueue(object : retrofit2.Callback<ResponseBody> {
-                override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                    if (response.isSuccessful) {
-                        Toast.showToast(this@LoginActivity,"登录成功")
-                    } else {
-                        Toast.showToast(this@LoginActivity,"登录失败")
+            apiService.login(username,password)
+                .subscribeOn(Schedulers.io()) // IO 线程执行网络请求
+                .observeOn(AndroidSchedulers.mainThread()) // 主线程更新数据
+                .subscribe(object : Observer<Response<ResponseBody>> {
+                    override fun onSubscribe(d: Disposable) {
+                        // 可以在这里做一些初始化操作
                     }
-                }
 
-                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                    Toast.showToast(this@LoginActivity,"网络请求失败")
-                }
-            })
-        }
+                    override fun onNext(response: Response<ResponseBody>) {
+                        // 登录成功后的操作
+                        if (response.isSuccessful) {
+                            Toast.showToast(this@LoginActivity,"登录成功")
+                            val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                            startActivity(intent)
+                        } else {
+                            Toast.showToast(this@LoginActivity,"登录失败")
+                        }
+                    }
 
-        binding.registerBottom.setOnClickListener {
+                    override fun onError(e: Throwable) {
+                        // 登录失败后的操作
+                        // 网络请求错误（如无网络连接）
+                        Toast.showToast(this@LoginActivity, "网络请求失败: ${e.message}")
+                    }
+
+                    override fun onComplete() {
+                        // 完成时的操作
+                    }
+                })
+            }
+//            下面是只使用retrofit的例子      上面是使用retrofit+rxjava的例子
+//            val registerCall = apiService.login(username,password)
+//            registerCall.enqueue(object : retrofit2.Callback<ResponseBody> {
+//                override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+//                    if (response.isSuccessful) {
+//                        Toast.showToast(this@LoginActivity,"登录成功")
+//                        val intent = Intent(this@LoginActivity, MainActivity::class.java)
+//                        startActivity(intent)
+//                    } else {
+//                        Toast.showToast(this@LoginActivity,"登录失败")
+//                    }
+//                }
+//
+//                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+//                    Toast.showToast(this@LoginActivity,"网络请求失败")
+//                }
+//            })
+         binding.registerBottom.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
+         }
         }
     }
-}
