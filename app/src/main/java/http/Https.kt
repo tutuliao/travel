@@ -1,14 +1,15 @@
 package http
-import model.User
+import io.reactivex.Observable
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.ResponseBody
 import okhttp3.ResponseBody.Companion.toResponseBody
 import okio.Buffer
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.Body
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
@@ -24,7 +25,7 @@ interface ApiService {
     fun login(
         @Field("username") username: String,
         @Field("password") password: String
-    ): Call<ResponseBody>
+    ): Observable<Response<ResponseBody>>
 
     @FormUrlEncoded
     @POST("user/register")
@@ -113,6 +114,8 @@ class RetrofitManager private constructor() {
             .baseUrl(baseUrl)
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
+            //添加对RxJava的支持
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
     }
 
