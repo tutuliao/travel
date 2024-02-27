@@ -1,4 +1,5 @@
 package com.example.myapplication
+import GsonSingleton
 import android.content.Intent
 import android.os.Bundle
 import android.widget.EditText
@@ -10,6 +11,8 @@ import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import model.UserManager
+import model.UserResponse
 import okhttp3.ResponseBody
 import retrofit2.Response
 import service.Toast
@@ -46,8 +49,14 @@ class LoginActivity: AppCompatActivity() {
                         // 登录成功后的操作
                         if (response.isSuccessful) {
                             Toast.showToast(this@LoginActivity,"登录成功")
+                            val responseBody = response.body()?.string()
+                            val loginResponse = GsonSingleton.gson.fromJson(responseBody,UserResponse::class.java)
+                            UserManager.getInstance().setLoginResponse(loginResponse)
+                            //println("这就是${UserManager.getInstance().getLoginResponse()?.data?.username}")
+                            //println("这就是id${UserManager.getInstance().getLoginResponse()?.data?.id}")
                             val intent = Intent(this@LoginActivity, MainActivity::class.java)
                             startActivity(intent)
+
                         } else {
                             Toast.showToast(this@LoginActivity,"登录失败")
                         }
