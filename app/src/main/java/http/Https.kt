@@ -1,5 +1,6 @@
 package http
 import io.reactivex.Observable
+import model.UserManager
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.ResponseBody
@@ -37,6 +38,29 @@ interface ApiService {
 
 
 }
+class TokenInterceptor : Interceptor {
+    override fun intercept(chain: Interceptor.Chain): okhttp3.Response {
+        val originalRequest = chain.request()
+
+        // 这里假设你已经有方式获取Token，这里直接使用一个示例Token
+        val token = getToken()
+        val newRequest = if (token.isNullOrEmpty()) {
+            originalRequest
+        } else {
+            originalRequest.newBuilder()
+                .header("Authorization", "$token")
+                .build()
+        }
+
+        return chain.proceed(newRequest)
+    }
+    private fun getToken(): String? {
+        // 这里实现获取Token的逻辑，可能是从SharedPreferences, 数据库等地方获取
+        // 示例返回值，实际应用中应从您的存储机制中获取
+        return UserManager.getInstance().getLoginResponse()?.data?.token // 请替换为实际获取Token的逻辑
+    }
+}
+
 class HttpsInterceptor : Interceptor {
     //拦截器
     override fun intercept(chain: Interceptor.Chain): okhttp3.Response {
@@ -105,6 +129,7 @@ class RetrofitManager private constructor() {
             .connectTimeout(5, TimeUnit.SECONDS)  //连接超时时间
             .readTimeout(5, TimeUnit.SECONDS)  //读取超时时间
             .addInterceptor(HttpsInterceptor())  // 添加拦截器
+            .addInterceptor(TokenInterceptor())  // 添加TokenInterceptor
             .retryOnConnectionFailure(true)  //尝试重新连接
             .build()
     }
