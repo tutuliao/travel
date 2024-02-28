@@ -47,8 +47,6 @@ class PasswordChangeActivity: BaseActivity()  {
                 }
 
                 override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                    // 处理失败情况，如网络错误
-                    //println("网络请求失败: ${t.message}")
                     Toast.showToast(this@PasswordChangeActivity,"网络请求失败")
                 }
             })

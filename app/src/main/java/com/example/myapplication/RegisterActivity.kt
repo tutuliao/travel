@@ -33,13 +33,8 @@ class RegisterActivity:BaseActivity() {
             registerCall.enqueue(object : retrofit2.Callback<ResponseBody> {
                 override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                     if (response.isSuccessful) {
-                        // 处理成功的响应
-                        //val responseBodyString = response.body()?.string()
-                        //println("注册成功: $responseBodyString")
                         Toast.showToast(this@RegisterActivity,"注册成功")
                     } else {
-                        // 处理错误响应
-                        //println("注册失败: ${response.errorBody()?.string()}")
                         Toast.showToast(this@RegisterActivity,"注册失败")
                     }
                 }

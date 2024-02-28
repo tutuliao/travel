@@ -53,8 +53,6 @@ class LoginActivity: AppCompatActivity() {
                             val loginResponse = GsonSingleton.gson.fromJson(responseBody,UserResponse::class.java)
                             UserManager.getInstance().setLoginResponse(loginResponse)
                             //println("这就是${UserManager.getInstance().getLoginResponse()?.data?.username}")
-                            println("这就是token${UserManager.getInstance().getLoginResponse()?.data?.token}")
-
 
                             val intent = Intent(this@LoginActivity, MainActivity::class.java)
                             startActivity(intent)
@@ -75,23 +73,6 @@ class LoginActivity: AppCompatActivity() {
                     }
                 })
             }
-//            下面是只使用retrofit的例子      上面是使用retrofit+rxjava的例子
-//            val registerCall = apiService.login(username,password)
-//            registerCall.enqueue(object : retrofit2.Callback<ResponseBody> {
-//                override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-//                    if (response.isSuccessful) {
-//                        Toast.showToast(this@LoginActivity,"登录成功")
-//                        val intent = Intent(this@LoginActivity, MainActivity::class.java)
-//                        startActivity(intent)
-//                    } else {
-//                        Toast.showToast(this@LoginActivity,"登录失败")
-//                    }
-//                }
-//
-//                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-//                    Toast.showToast(this@LoginActivity,"网络请求失败")
-//                }
-//            })
          binding.registerBottom.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)

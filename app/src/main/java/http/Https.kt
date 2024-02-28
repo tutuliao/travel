@@ -13,7 +13,9 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
+import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Query
 import java.io.IOException
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
@@ -48,6 +50,14 @@ interface ApiService {
         @Field("username") username: String,
         @Field("newPassword") password: String
     ): Call<ResponseBody>
+
+    @GET("activity/list")
+    fun getList(@Query("index") index: Int): Call<ResponseBody>
+
+    @GET("activity/detail")
+    fun getItem(
+        @Query("id") id: Int
+    ): Observable<Response<ResponseBody>>
 }
 class TokenInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): okhttp3.Response {
