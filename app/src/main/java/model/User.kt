@@ -10,7 +10,7 @@ data class UserResponse(
 data class data(
       val token: String,
       val id: Int,
-      val username: String,
+      var username: String,
       val avatarId: Int,
       val roleId: Int
 )
@@ -33,5 +33,10 @@ class UserManager {
       fun setLoginResponse(newUserResponse: UserResponse) {
             userResponse = newUserResponse
       }
+
+      fun setUsername(username: String){
+            userResponse?.data?.username = username
+      }
+
 }
 

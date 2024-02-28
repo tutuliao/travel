@@ -26,6 +26,7 @@
                 android:layout_marginStart="@dimen/account_change_bottom_left"
                 android:layout_marginEnd="@dimen/account_change_bottom_right">
                 <include
+                    android:id="@+id/username_input"
                     layout="@layout/login_input_id" />
                 <include
                     android:id="@+id/bottom"

@@ -36,7 +36,18 @@ interface ApiService {
         @Field("password") password: String
     ): Call<ResponseBody>
 
+    @FormUrlEncoded
+    @POST("user/update")
+    fun resetUsername(
+        @Field("username") username: String,
+    ): Call<ResponseBody>
 
+    @FormUrlEncoded
+    @POST("user/resetPassword")
+    fun resetPassword(
+        @Field("username") username: String,
+        @Field("newPassword") password: String
+    ): Call<ResponseBody>
 }
 class TokenInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): okhttp3.Response {
@@ -160,6 +171,5 @@ class RetrofitManager private constructor() {
     fun provideApiService(): ApiService {
         return apiService
     }
-
 
 }
