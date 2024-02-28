@@ -12,8 +12,8 @@
     <dimen name="me_account_item_left">20dp</dimen>
     <dimen name="me_gap">12dp</dimen>
     <dimen name="me_account_icon_left">20dp</dimen>
-    <dimen name="me_account_text_left">50dp</dimen>
-    <dimen name="me_arrow_left">200dp</dimen>
+    <dimen name="me_account_text_left">30dp</dimen>
+    <dimen name="me_arrow_left">180dp</dimen>
 
     <dimen name="login_input_left">48dp</dimen>
     <dimen name="login_input_right">30dp</dimen>
@@ -29,7 +29,7 @@
     <!-- 定义字体尺寸 -->
     <dimen name="me_small_size">12sp</dimen>
     <dimen name="me_medium_size">18sp</dimen>
-    <dimen name="me_large_size">28sp</dimen>
+    <dimen name="me_large_size">20sp</dimen>
 
     <dimen name="login_small_size">12sp</dimen>
     <dimen name="login_medium_size">18sp</dimen>

@@ -35,8 +35,18 @@
                    android:layout_width="match_parent"
                    android:layout_height="@dimen/me_icon_height"
                    android:orientation="vertical">
-                   <include android:id="@+id/me_name"
-                       layout="@layout/me_account"/>
+                   <TextView
+                       android:id="@+id/me_name"
+                       android:layout_width="@dimen/me_name_width"
+                       android:layout_height="@dimen/me_name_height"
+                       android:text="@string/me_name"
+                       android:layout_marginStart="@dimen/me_name_left"
+                       android:layout_marginTop="@dimen/me_name_top"
+                       android:layout_marginBottom="@dimen/me_name_bottom"
+                       android:layout_marginEnd="@dimen/me_name_right"
+                       android:textSize="@dimen/me_large_size"
+                       android:textColor="@color/black">
+                   </TextView>
                    <TextView
                        android:id="@+id/me_id"
                        android:layout_width="@dimen/me_name_width"

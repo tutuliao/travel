@@ -42,6 +42,6 @@ class AccountChangeActivity: BaseActivity() {
                     Toast.showToast(this@AccountChangeActivity,"网络请求失败")
                 }
             })
-                }
         }
     }
+}

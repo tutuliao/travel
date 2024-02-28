@@ -10,14 +10,14 @@ import androidx.databinding.DataBindingUtil
 import com.example.myapplication.AccountChangeActivity
 import com.example.myapplication.PasswordChangeActivity
 import com.example.myapplication.databinding.MePageBinding
+import model.UserManager
 import service.API
 
 class MeFragment : Fragment(R.layout.me_page){
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
-
     }
+
     private lateinit var binding: MePageBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,6 +43,13 @@ class MeFragment : Fragment(R.layout.me_page){
             val intent = Intent(requireActivity(), PasswordChangeActivity::class.java)
             startActivity(intent)
         }
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        binding.meId.text = UserManager.getInstance().getLoginResponse()?.data?.id.toString()
+        binding.meName.text = UserManager.getInstance().getLoginResponse()?.data?.username
 
     }
 }
