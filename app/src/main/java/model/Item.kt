@@ -45,8 +45,4 @@ class ItemListManager {
         this.itemResponse = itemResponse
     }
 
-    fun addActvity(itemResponse: ItemResponse){
-
-    }
-
 }

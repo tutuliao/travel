@@ -52,6 +52,7 @@ class LoginActivity: AppCompatActivity() {
                             val responseBody = response.body()?.string()
                             val loginResponse = GsonSingleton.gson.fromJson(responseBody,UserResponse::class.java)
                             UserManager.getInstance().setLoginResponse(loginResponse)
+
                             //println("这就是${UserManager.getInstance().getLoginResponse()?.data?.username}")
 
                             val intent = Intent(this@LoginActivity, MainActivity::class.java)

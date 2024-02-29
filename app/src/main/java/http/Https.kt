@@ -55,9 +55,10 @@ interface ApiService {
     fun getList(@Query("index") index: Int): Call<ResponseBody>
 
     @GET("activity/detail")
-    fun getItem(
+    fun getItemDetail(
         @Query("id") id: Int
     ): Observable<Response<ResponseBody>>
+
 }
 class TokenInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): okhttp3.Response {

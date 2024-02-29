@@ -1,6 +1,7 @@
 package fragment
 import GsonSingleton
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.PagerAdapter
+import com.example.myapplication.ItemDetailActivity
 import com.example.myapplication.R
 import com.example.myapplication.databinding.HomePageBinding
 import com.scwang.smart.refresh.footer.ClassicsFooter
@@ -155,6 +157,16 @@ class RecyclerViewAdapter(private val context: Context, private val list: Mutabl
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.titleView.text = list[position].title
         holder.textView.text = list[position].content
+        holder.itemView.setOnClickListener{
+
+            val intent = Intent(context, ItemDetailActivity::class.java).apply {
+                // 传递数据，例如活动的 ID 或标题
+                putExtra("ITEM_ID", list[position].id)
+                println("666")
+            }
+            // 从 Context 启动 DetailActivity
+            context.startActivity(intent)
+        }
     }
 
     // getItemCount()方法告诉RecyclerView一共有多少个子项
