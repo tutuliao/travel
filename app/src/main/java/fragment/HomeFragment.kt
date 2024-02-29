@@ -80,7 +80,8 @@ class HomeFragment : Fragment(R.layout.home_page){
 
         smartRefreshLayout.setOnRefreshListener{
             list.clear()
-            recyclerAdapter.notifyItemRangeChanged(0, list.size)
+            index+1
+            loadData(index)
             smartRefreshLayout.finishRefresh(1000)
         }
 
@@ -162,7 +163,6 @@ class RecyclerViewAdapter(private val context: Context, private val list: Mutabl
             val intent = Intent(context, ItemDetailActivity::class.java).apply {
                 // 传递数据，例如活动的 ID 或标题
                 putExtra("ITEM_ID", list[position].id)
-                println("666")
             }
             // 从 Context 启动 DetailActivity
             context.startActivity(intent)

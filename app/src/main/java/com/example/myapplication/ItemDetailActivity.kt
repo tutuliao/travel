@@ -19,7 +19,6 @@ class ItemDetailActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         val binding : ActivityItemDetailBinding = DataBindingUtil.setContentView(this,R.layout.activity_item_detail)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        setTitleText("详情")
         // 获取从 Intent 传递过来的数据
         val itemId = intent.getIntExtra("ITEM_ID", 0) // 默认值为 0 或其他适当的值
         val apiService = RetrofitManager.getInstance().provideApiService()
@@ -38,6 +37,7 @@ class ItemDetailActivity : BaseActivity() {
                         val itemDetailResponse = GsonSingleton.gson.fromJson(responseBody, ItemDetailResponse::class.java)
                         ItemDetailManager.getInstance().setItemDetailResponse(itemDetailResponse)
                         binding.itemText.text = ItemDetailManager.getInstance().getItemDetailResponse().data.content
+                        setTitleText(ItemDetailManager.getInstance().getItemDetailResponse().data.title)
                     } else {
                         Toast.showToast(this@ItemDetailActivity, "加载失败")
                     }
@@ -50,6 +50,7 @@ class ItemDetailActivity : BaseActivity() {
                 override fun onComplete() {
 
                 }
+
             })
     }
 
