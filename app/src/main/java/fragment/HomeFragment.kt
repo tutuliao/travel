@@ -93,6 +93,13 @@ class HomeFragment : Fragment(R.layout.home_page){
 
     }
 
+    override fun onStart() {
+        super.onStart()
+        loadData(index)
+        smartRefreshLayout.finishRefresh(1000)
+    }
+
+
     private fun loadData(index: Int) {
         apiService.getList(index).enqueue(object : retrofit2.Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
