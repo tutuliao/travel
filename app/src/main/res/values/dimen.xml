@@ -25,6 +25,12 @@
 
     <dimen name="home_item_left">8dp</dimen>
     <dimen name="home_item_right">8dp</dimen>
+    <dimen name="home_love_left">20dp</dimen>
+    <dimen name="home_love_right">20dp</dimen>
+    <dimen name="home_love_top">30dp</dimen>
+    <dimen name="home_title_top">12dp</dimen>
+    <dimen name="home_context_top">8dp</dimen>
+
 
     <dimen name="item_detail_text_left">8dp</dimen>
     <dimen name="item_detail_text_right">8dp</dimen>
@@ -40,8 +46,8 @@
 
     <dimen name="account_change_small_size">20sp</dimen>
 
-    <dimen name="home_item_large_size">20sp</dimen>
-    <dimen name="home_item_medium_size">12sp</dimen>
+    <dimen name="home_item_large_size">28sp</dimen>
+    <dimen name="home_item_medium_size">20sp</dimen>
 
     <dimen name="item_detail_large_size">30sp</dimen>
     <dimen name="item_detail_medium_size">28sp</dimen>
@@ -61,4 +67,7 @@
     <dimen name="home_item_height">120dp</dimen>
     <dimen name="home_item_radius">16dp</dimen>
     <dimen name="home_item_elevation">5dp</dimen>
+    <dimen name="home_item_icon_height">35dp</dimen>
+    <dimen name="home_item_icon_width">35dp</dimen>
+
 </resources>
