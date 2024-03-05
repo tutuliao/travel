@@ -3,16 +3,22 @@ package service;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-public class SharePreferencesManager {
+public class SharedPreferencesManager {
     private final String SP_NAME = "sp";
     private final int DEFAULT_VALUE = 0;
     private final String KEY_USER_TOKEN = "user_token";
     private final String KEY_USER_USERNAME = "user_username";
     private final String KEY_USER_ID = "user_id";
+    private static SharedPreferences sharedPreferences;
+    private static SharedPreferencesManager instance;
+    public static synchronized SharedPreferencesManager getInstance(Context context) {
+        if (instance == null) {
+            instance = new SharedPreferencesManager(context.getApplicationContext());
+        }
+        return instance;
+    }
 
-    private final SharedPreferences sharedPreferences;
-
-    public SharePreferencesManager(Context context) {
+    public SharedPreferencesManager(Context context) {
         sharedPreferences = context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
     }
 
@@ -20,7 +26,7 @@ public class SharePreferencesManager {
         return sharedPreferences.getString(KEY_USER_TOKEN,"");
     }
 
-    public void setUserToken(String value){
+    public void resetUserToken(String value){
         sharedPreferences.edit().putString(KEY_USER_TOKEN,value).apply();
     }
 
@@ -28,14 +34,14 @@ public class SharePreferencesManager {
         return sharedPreferences.getString(KEY_USER_USERNAME,"");
     }
 
-    public void setUserName(String value){
+    public void resetUserName(String value){
         sharedPreferences.edit().putString(KEY_USER_USERNAME,value).apply();
     }
 
-    public int getId(){
+    public int getUserId(){
         return sharedPreferences.getInt(KEY_USER_ID,DEFAULT_VALUE);
     }
-    public void setId(int value){
+    public void resetUserId(int value){
         sharedPreferences.edit().putInt(KEY_USER_ID,value).apply();
     }
 
