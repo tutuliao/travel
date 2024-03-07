@@ -35,8 +35,6 @@ class MeFragment : Fragment(R.layout.me_page){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val api = API.getInstance()
-
         binding.meAccountChange.setOnClickListener{
             val intent = Intent(requireActivity(), AccountChangeActivity::class.java)
             startActivity(intent)
@@ -45,6 +43,10 @@ class MeFragment : Fragment(R.layout.me_page){
         binding.mePasswordChange.setOnClickListener{
             val intent = Intent(requireActivity(), PasswordChangeActivity::class.java)
             startActivity(intent)
+        }
+
+        binding.meCircularImageView.setOnClickListener{
+
         }
 
     }

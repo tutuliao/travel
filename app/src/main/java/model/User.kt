@@ -11,7 +11,7 @@ data class data(
       val token: String,
       val id: Int,
       var username: String,
-      val avatarId: Int,
+      val avatar: Int,
       val roleId: Int
 )
 class UserManager {

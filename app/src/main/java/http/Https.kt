@@ -2,6 +2,7 @@ package http
 import io.reactivex.Observable
 import model.UserManager
 import okhttp3.Interceptor
+import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.ResponseBody
 import okhttp3.ResponseBody.Companion.toResponseBody
@@ -14,7 +15,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
+import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.Part
 import retrofit2.http.Query
 import java.io.IOException
 import java.time.LocalTime
@@ -49,6 +52,12 @@ interface ApiService {
     fun resetPassword(
         @Field("username") username: String,
         @Field("newPassword") password: String
+    ): Call<ResponseBody>
+
+    @Multipart
+    @POST("/user/uploadAvatar")
+    fun uploadAvatar(
+        @Part file: MultipartBody.Part
     ): Call<ResponseBody>
 
     @GET("activity/list")
