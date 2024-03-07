@@ -36,10 +36,9 @@ class LoginActivity: AppCompatActivity() {
         val apiService = RetrofitManager.getInstance().provideApiService()
         val token = sharedPreferencesManager.userToken
         if (token.isNotEmpty()) {
-            // Token 为空，跳转到登录页面或其他页面
             startActivity(Intent(this, MainActivity::class.java))
-            finish() // 结束当前的 LoginActivity，防止用户回退到此页面
-            return  // 退出 onCreate，避免继续执行后面的初始化代码
+            finish()  // 结束当前的 LoginActivity，防止用户回退到此页面
+                     //return   退出 onCreate，避免继续执行后面的初始化代码
         }
 
         binding.loginBottom.setOnClickListener{

@@ -12,8 +12,11 @@ import com.example.myapplication.PasswordChangeActivity
 import com.example.myapplication.databinding.MePageBinding
 import model.UserManager
 import service.API
+import service.SharedPreferencesManager
 
 class MeFragment : Fragment(R.layout.me_page){
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -47,9 +50,9 @@ class MeFragment : Fragment(R.layout.me_page){
     }
 
     override fun onStart() {
+        val sharedPreferencesManager = SharedPreferencesManager.getInstance(requireContext())
+        binding.meId.text = sharedPreferencesManager.userId.toString()
+        binding.meName.text = sharedPreferencesManager.userName
         super.onStart()
-        binding.meId.text = UserManager.getInstance().getLoginResponse()?.data?.id.toString()
-        binding.meName.text = UserManager.getInstance().getLoginResponse()?.data?.username
-
     }
 }

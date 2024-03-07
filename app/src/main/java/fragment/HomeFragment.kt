@@ -36,7 +36,7 @@ class HomeFragment : Fragment(R.layout.home_page){
     private lateinit var smartRefreshLayout : SmartRefreshLayout
     private var list: MutableList<Activity> = mutableListOf()//List 是不可变的 需要一个可变的列表（MutableList），您可以将列表声明为 MutableList 类型而不是 List 类型
     private val apiService = RetrofitManager.getInstance().provideApiService()
-    private var index = 1
+    private var index = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         list.clear()
@@ -86,7 +86,7 @@ class HomeFragment : Fragment(R.layout.home_page){
         }
 
         smartRefreshLayout.setOnLoadMoreListener{
-            index += 1
+            index+1
             loadData(index)
             smartRefreshLayout.finishRefresh(1000)
         }

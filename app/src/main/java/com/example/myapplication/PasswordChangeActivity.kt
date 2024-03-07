@@ -14,6 +14,7 @@ import model.UserManager
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Response
+import service.SharedPreferencesManager
 import service.Toast
 
 class PasswordChangeActivity: BaseActivity()  {
@@ -28,14 +29,14 @@ class PasswordChangeActivity: BaseActivity()  {
         //修改公共基类的title
         setTitleText("修改密码")
         val apiService = RetrofitManager.getInstance().provideApiService()
-
         passwordText = findViewById(R.id.password_input)
+        val sharedPreferencesManager = SharedPreferencesManager.getInstance(applicationContext)
 
         //修改按钮
         binding.bottom.setOnClickListener{
             val password = passwordText.text.toString()
-            val username = UserManager.getInstance().getLoginResponse()?.data?.username ?:""
-
+            val username = sharedPreferencesManager.userName
+            println("这是username${username}")
             val resetPasswordCall = apiService.resetPassword(username,password)
             resetPasswordCall.enqueue(object : retrofit2.Callback<ResponseBody> {
                 override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {

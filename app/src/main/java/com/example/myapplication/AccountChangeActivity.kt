@@ -4,10 +4,10 @@ import android.widget.EditText
 import androidx.databinding.DataBindingUtil
 import com.example.myapplication.databinding.ActivityAccountChangeBinding
 import http.RetrofitManager
-import model.UserManager
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Response
+import service.SharedPreferencesManager
 import service.Toast
 
 
@@ -24,6 +24,8 @@ class AccountChangeActivity: BaseActivity() {
 
         usernameText = findViewById(R.id.username_input)
         val apiService = RetrofitManager.getInstance().provideApiService()
+        val sharedPreferencesManager = SharedPreferencesManager.getInstance(applicationContext)
+
         //修改按钮
         binding.bottom.setOnClickListener{
             val username = usernameText.text.toString()
@@ -32,7 +34,7 @@ class AccountChangeActivity: BaseActivity() {
                 override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                     if (response.isSuccessful) {
                         Toast.showToast(this@AccountChangeActivity,"修改成功")
-                        UserManager.getInstance().setUsername(username)
+                        sharedPreferencesManager.resetUserName(username)
                     } else {
                         Toast.showToast(this@AccountChangeActivity,"修改失败")
                     }
