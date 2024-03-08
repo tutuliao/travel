@@ -1,11 +1,11 @@
 package com.example.myapplication
+import MeFragment
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import com.example.myapplication.databinding.ActivityMainBinding
 import fragment.CommunityFragment
 import fragment.HomeFragment
-import fragment.MeFragment
 
 
 

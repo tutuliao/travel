@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.PagerAdapter
+import com.bumptech.glide.Glide
 import com.example.myapplication.ItemDetailActivity
 import com.example.myapplication.R
 import com.example.myapplication.databinding.HomePageBinding
@@ -165,6 +166,10 @@ class RecyclerViewAdapter(private val context: Context, private val list: Mutabl
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.titleView.text = list[position].title
         holder.textView.text = list[position].content
+        // 使用 Glide 加载网络图片
+        Glide.with(context)
+            .load(list[position].image) // 假设是 activityItem 对象的 imageUrl 属性
+            .into(holder.pictureView) // 将图片加载到 ViewHolder 的 pictureView 中
         holder.itemView.setOnClickListener{
 
             val intent = Intent(context, ItemDetailActivity::class.java).apply {
@@ -185,6 +190,7 @@ class RecyclerViewAdapter(private val context: Context, private val list: Mutabl
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var titleView: TextView = itemView.findViewById(R.id.title_view)
         var textView : TextView = itemView.findViewById(R.id.text_view)
+        var pictureView : ImageView = itemView.findViewById(R.id.home_item_picture)
     }
 }
 

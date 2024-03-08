@@ -1,22 +1,12 @@
-package fragment
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.camera.core.CameraSelector
-import androidx.camera.core.ImageCapture
-import androidx.camera.core.ImageCaptureException
-import androidx.camera.core.Preview
-import androidx.camera.lifecycle.ProcessCameraProvider
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.myapplication.R
 import androidx.databinding.DataBindingUtil
@@ -24,15 +14,11 @@ import com.example.myapplication.AccountChangeActivity
 import com.example.myapplication.PasswordChangeActivity
 import com.example.myapplication.databinding.MePageBinding
 import service.SharedPreferencesManager
-import java.io.File
-import java.text.SimpleDateFormat
-import java.util.Locale
 
 class MeFragment : Fragment(R.layout.me_page){
     private lateinit var takePictureLauncher: ActivityResultLauncher<Uri>
     private lateinit var pickImageLauncher: ActivityResultLauncher<String>
     private lateinit var binding: MePageBinding
-    private lateinit var outputDirectory: File
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

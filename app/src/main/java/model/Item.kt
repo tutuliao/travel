@@ -15,7 +15,7 @@ data class Activity(
     val endTime: String?, // 同上
     val address: String,
     val fee: Double,
-    val imageIds: List<Int> // 假设图片ID是整型列表，根据实际情况调整类型
+    val image: String // 假设图片ID是整型列表，根据实际情况调整类型
 )
 
 class ItemListManager {
@@ -34,7 +34,7 @@ class ItemListManager {
     fun getItemResponse(): ItemResponse {
         if (itemResponse == null) {
             val activities = listOf(
-                Activity(1, "活动1", "活动1内容", null, null, "活动1地址", 12.30, listOf())
+                Activity(1, "活动1", "活动1内容", null, null, "活动1地址", 12.30, "")
             )
             itemResponse = ItemResponse(httpStatus = 200, code = 200, msg = "OK", data = activities)
         }
