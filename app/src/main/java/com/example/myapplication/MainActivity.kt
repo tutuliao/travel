@@ -1,5 +1,5 @@
 package com.example.myapplication
-import MeFragment
+import fragment.MeFragment
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
@@ -10,8 +10,6 @@ import fragment.HomeFragment
 
 
 class MainActivity : AppCompatActivity() {
-    /*因为android app有生命周期
-    所以入口点是onCreate，而不是main函数*/
     private val homeFragment = HomeFragment()
     private val communityFragment = CommunityFragment()
     private val meFragment = MeFragment()
