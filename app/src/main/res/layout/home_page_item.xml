@@ -43,7 +43,7 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="3"
+                android:layout_weight="2"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -96,8 +96,8 @@
 
                 <ImageView
                     android:id="@+id/home_item_love"
-                    android:layout_width="@dimen/home_item_icon_width"
-                    android:layout_height="@dimen/home_item_icon_height"
+                    android:layout_width="@dimen/home_item_love_width"
+                    android:layout_height="@dimen/home_item_love_height"
                     android:src="@drawable/unloved"
                     android:scaleType="centerCrop"
                     android:layout_gravity="center"

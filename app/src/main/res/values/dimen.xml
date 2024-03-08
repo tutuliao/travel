@@ -67,7 +67,8 @@
     <dimen name="home_item_height">120dp</dimen>
     <dimen name="home_item_radius">16dp</dimen>
     <dimen name="home_item_elevation">5dp</dimen>
-    <dimen name="home_item_icon_height">35dp</dimen>
-    <dimen name="home_item_icon_width">35dp</dimen>
-
+    <dimen name="home_item_icon_height">60dp</dimen>
+    <dimen name="home_item_icon_width">60dp</dimen>
+    <dimen name="home_item_love_height">40dp</dimen>
+    <dimen name="home_item_love_width">40dp</dimen>
 </resources>
