@@ -81,8 +81,7 @@ class HomeFragment : Fragment(R.layout.home_page){
 
         smartRefreshLayout.setOnRefreshListener{
             list.clear()
-            index+1
-            loadData(index)
+            refreshData()
             smartRefreshLayout.finishRefresh(1000)
         }
 
@@ -116,15 +115,36 @@ class HomeFragment : Fragment(R.layout.home_page){
                         itemResponse.data.forEach { activity ->
                             list.add(activity)
                         }
+                        recyclerAdapter.notifyItemRangeChanged(0, list.size)
                     }
-                    recyclerAdapter.notifyItemRangeChanged(0, list.size)
                 } else {
                     Toast.showToast(requireContext(),"加载失败")
+                    smartRefreshLayout.finishLoadMoreWithNoMoreData()
                 }
             }
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 // 处理网络请求失败的情况
+                Toast.showToast(requireContext(),"网络请求失败")
+            }
+        })
+    }
+
+    private fun refreshData(){
+        apiService.getList(0).enqueue(object : retrofit2.Callback<ResponseBody> {
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if (response.isSuccessful) {
+                    val responseBody = response.body()?.string()
+                    val itemResponse =
+                        GsonSingleton.gson.fromJson(responseBody, ItemResponse::class.java)
+                    ItemListManager.getInstance().setItemResponse(itemResponse)
+                    itemResponse.data.forEach { activity ->
+                        list.add(activity)
+                        recyclerAdapter.notifyItemRangeChanged(0, list.size)
+                    }
+                }
+            }
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 Toast.showToast(requireContext(),"网络请求失败")
             }
         })
