@@ -3,6 +3,8 @@ import GsonSingleton
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,6 +30,8 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Response
 import service.Toast
+import java.util.Timer
+import java.util.TimerTask
 
 
 class HomeFragment : Fragment(R.layout.home_page){
@@ -38,7 +42,11 @@ class HomeFragment : Fragment(R.layout.home_page){
     private var list: MutableList<Activity> = mutableListOf()//List 是不可变的 需要一个可变的列表（MutableList），您可以将列表声明为 MutableList 类型而不是 List 类型
     private val apiService = RetrofitManager.getInstance().provideApiService()
     private var index = 0
-
+    private var currentPage = 0
+    private var timer: Timer? = null
+    private val DELAY_MS: Long = 500 // 延迟时间，在开始轮播前等待的时间
+    private val PERIOD_MS: Long = 2000 // 周期时间，每隔多久轮播一次
+    private val images = listOf(R.drawable.hotel1, R.drawable.hotel2, R.drawable.hotel3)
     override fun onCreate(savedInstanceState: Bundle?) {
         list.clear()
         super.onCreate(savedInstanceState)
@@ -62,7 +70,6 @@ class HomeFragment : Fragment(R.layout.home_page){
 
         super.onViewCreated(view, savedInstanceState)
         //banner
-        val images = listOf(R.drawable.hotel1, R.drawable.hotel2, R.drawable.hotel3)
         bannerAdapter = BannerAdapter(requireContext(), images)
         binding.viewPager.adapter = bannerAdapter
 
@@ -91,12 +98,18 @@ class HomeFragment : Fragment(R.layout.home_page){
             smartRefreshLayout.finishRefresh(1000)
         }
 
+        initBannerAutoScroll()
     }
 
     override fun onStart() {
         super.onStart()
         loadData(index)
         smartRefreshLayout.finishRefresh(1000)
+    }
+
+    override fun onDestroy() {
+        timer?.cancel()
+        super.onDestroy()
     }
 
 
@@ -148,6 +161,24 @@ class HomeFragment : Fragment(R.layout.home_page){
                 Toast.showToast(requireContext(),"网络请求失败")
             }
         })
+    }
+
+    private fun initBannerAutoScroll() {
+        val handler = Handler(Looper.getMainLooper())
+        val update = Runnable {
+            if (currentPage == images.size) {
+                currentPage = 0
+            }
+            binding.viewPager.setCurrentItem(currentPage++, true)
+        }
+
+        timer = Timer() // This will create a new Thread
+        timer?.schedule(object : TimerTask() {
+            // task to be scheduled
+            override fun run() {
+                handler.post(update)
+            }
+        }, DELAY_MS, PERIOD_MS)
     }
 }
 
@@ -212,5 +243,6 @@ class RecyclerViewAdapter(private val context: Context, private val list: Mutabl
         var textView : TextView = itemView.findViewById(R.id.text_view)
         var pictureView : ImageView = itemView.findViewById(R.id.home_item_picture)
     }
+
 }
 
