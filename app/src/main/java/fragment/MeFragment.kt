@@ -60,12 +60,12 @@ class MeFragment : Fragment(R.layout.me_page){
 
         takePictureLauncher = registerForActivityResult(ActivityResultContracts.TakePicture()) { isSuccess ->
             if (isSuccess) {
-
                 // 图片成功保存到了提供的 Uri，可以进一步处理
                 File(currentPhotoPath).also { file ->
                     MediaScannerConnection.scanFile(context, arrayOf(file.toString()), null, null)
                     val requestFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
                     val body = MultipartBody.Part.createFormData("picture", file.name, requestFile)
+
                     apiService.uploadAvatar(body).enqueue(object : retrofit2.Callback<ResponseBody> {
                         override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                             if (response.isSuccessful) {
@@ -82,6 +82,7 @@ class MeFragment : Fragment(R.layout.me_page){
                             // 处理失败
                         }
                     })
+
                 }
             }
 
@@ -90,6 +91,9 @@ class MeFragment : Fragment(R.layout.me_page){
         pickImageLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
             // 使用 uri
             // 例如：binding.imageView.setImageURI(uri)
+            uri?.let {
+                uploadImageFromUri(it)
+            }
         }
 
     }
@@ -209,6 +213,40 @@ class MeFragment : Fragment(R.layout.me_page){
         // 保存文件路径用于后续访问
         currentPhotoPath = image.absolutePath
         return image
+    }
+
+    //图片库选取图片上传
+    private fun uploadImageFromUri(imageUri: Uri) {
+        val inputStream = context?.contentResolver?.openInputStream(imageUri)
+        val file = createPrivateImageFile() // 使用前面定义的 createImageFile 方法创建一个临时文件
+        inputStream?.let { stream ->
+            file.outputStream().use {
+                // 将输入流拷贝到文件中
+                stream.copyTo(it)
+            }
+        }
+
+        // 准备文件部分
+        val requestFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
+        val body = MultipartBody.Part.createFormData("picture", file.name, requestFile)
+
+        // 发起上传请求
+        apiService.uploadAvatar(body).enqueue(object : retrofit2.Callback<ResponseBody> {
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if (response.isSuccessful) {
+                    Glide.with(this@MeFragment)
+                        .load(file)
+                        .into(binding.meCircularImageView)
+                    Toast.makeText(requireContext(),"头像更新成功", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(requireContext(),"替换头像失败", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                Toast.makeText(requireContext(), "上传失败: ${t.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
 }
