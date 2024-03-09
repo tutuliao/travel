@@ -17,9 +17,18 @@ import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import com.example.myapplication.R
 import androidx.databinding.DataBindingUtil
+import com.bumptech.glide.Glide
 import com.example.myapplication.AccountChangeActivity
 import com.example.myapplication.PasswordChangeActivity
 import com.example.myapplication.databinding.MePageBinding
+import http.RetrofitManager
+import okhttp3.Callback
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Response
 import service.SharedPreferencesManager
 import java.io.File
 import java.text.SimpleDateFormat
@@ -36,22 +45,46 @@ class MeFragment : Fragment(R.layout.me_page){
             if (isGranted) {
                 // 权限已授予，打开相机
                 openCamera()
+
             } else {
                 // 权限被拒绝，显示一个解释为什么需要这个权限的消息
                 Toast.makeText(context, "Camera permission is required to take photos", Toast.LENGTH_LONG).show()
             }
         }
+    private val apiService = RetrofitManager.getInstance().provideApiService()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
+
 
         takePictureLauncher = registerForActivityResult(ActivityResultContracts.TakePicture()) { isSuccess ->
             if (isSuccess) {
+
                 // 图片成功保存到了提供的 Uri，可以进一步处理
                 File(currentPhotoPath).also { file ->
                     MediaScannerConnection.scanFile(context, arrayOf(file.toString()), null, null)
+                    val requestFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
+                    val body = MultipartBody.Part.createFormData("picture", file.name, requestFile)
+                    apiService.uploadAvatar(body).enqueue(object : retrofit2.Callback<ResponseBody> {
+                        override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                            if (response.isSuccessful) {
+                                Glide.with(this@MeFragment)
+                                    .load(File(currentPhotoPath))
+                                    .into(binding.meCircularImageView)
+                                service.Toast.showToast(requireContext(),"头像更新成功")
+                            } else {
+                                service.Toast.showToast(requireContext(),"替换头像失败")
+                            }
+                        }
+
+                        override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                            // 处理失败
+                        }
+                    })
                 }
             }
+
         }
 
         pickImageLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->

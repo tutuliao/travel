@@ -19,6 +19,7 @@ import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
 import retrofit2.http.Query
+import java.io.File
 import java.io.IOException
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
