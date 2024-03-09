@@ -1,6 +1,7 @@
 package fragment
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.media.MediaScannerConnection
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
@@ -47,6 +48,9 @@ class MeFragment : Fragment(R.layout.me_page){
         takePictureLauncher = registerForActivityResult(ActivityResultContracts.TakePicture()) { isSuccess ->
             if (isSuccess) {
                 // 图片成功保存到了提供的 Uri，可以进一步处理
+                File(currentPhotoPath).also { file ->
+                    MediaScannerConnection.scanFile(context, arrayOf(file.toString()), null, null)
+                }
             }
         }
 
@@ -118,7 +122,7 @@ class MeFragment : Fragment(R.layout.me_page){
                 requireContext(), android.Manifest.permission.CAMERA
             ) -> {
                 // 相机权限已经被授予，安全地打开相机
-                val photoFile: File = createImageFile()
+                val photoFile: File = createPublicImageFile()
                 val photoURI: Uri = FileProvider.getUriForFile(
                     requireContext(),
                     "${requireContext().packageName}.provider",
@@ -137,7 +141,7 @@ class MeFragment : Fragment(R.layout.me_page){
         pickImageLauncher.launch("image/*")
     }
 
-    private fun createImageFile(): File {
+    private fun createPrivateImageFile(): File {
         // 创建一个时间戳，用于命名图片文件
         val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
         val imageFileName: String = "JPEG_" + timeStamp + "_"
@@ -155,4 +159,23 @@ class MeFragment : Fragment(R.layout.me_page){
             currentPhotoPath = absolutePath
         }
     }
+
+    private fun createPublicImageFile(): File {
+        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+        val imageFileName = "JPEG_$timeStamp"
+
+        // 使用公共目录保存图片
+        val storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+
+        val image = File.createTempFile(
+            imageFileName, /* 文件名 */
+            ".jpg", /* 文件后缀 */
+            storageDir /* 文件目录 */
+        )
+
+        // 保存文件路径用于后续访问
+        currentPhotoPath = image.absolutePath
+        return image
+    }
+
 }
