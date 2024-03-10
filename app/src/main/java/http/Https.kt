@@ -62,7 +62,9 @@ interface ApiService {
     ): Call<ResponseBody>
 
     @GET("activity/list")
-    fun getList(@Query("index") index: Int): Call<ResponseBody>
+    fun getList(
+        @Query("index") index: Int
+    ): Call<ResponseBody>
 
     @GET("activity/detail")
     fun getItemDetail(

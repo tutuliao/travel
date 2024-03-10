@@ -153,6 +153,7 @@ class MeFragment : Fragment(R.layout.me_page){
         popup.show()
     }
 
+    //打开摄像头
     private fun openCamera() {
         when (PackageManager.PERMISSION_GRANTED) {
             ContextCompat.checkSelfPermission(
@@ -174,10 +175,12 @@ class MeFragment : Fragment(R.layout.me_page){
         }
     }
 
+    //打开手机图库
     private fun openGallery() {
         pickImageLauncher.launch("image/*")
     }
 
+    //使用私有目录保存图片
     private fun createPrivateImageFile(): File {
         // 创建一个时间戳，用于命名图片文件
         val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
@@ -197,6 +200,7 @@ class MeFragment : Fragment(R.layout.me_page){
         }
     }
 
+    //使用公共目录保存图片
     private fun createPublicImageFile(): File {
         val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
         val imageFileName = "JPEG_$timeStamp"
