@@ -62,6 +62,8 @@ class LoginActivity: AppCompatActivity() {
 
                             sharedPreferencesManager.resetUserName(UserManager.getInstance().getLoginResponse()?.data?.username)
                             sharedPreferencesManager.resetUserToken(UserManager.getInstance().getLoginResponse()?.data?.token)
+                            sharedPreferencesManager.resetUserAvatar(UserManager.getInstance().getLoginResponse()?.data?.avatar)
+
                             UserManager.getInstance().getLoginResponse()?.data?.id?.let { it1 ->
                                 sharedPreferencesManager.resetUserId(
                                     it1

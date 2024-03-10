@@ -52,7 +52,6 @@ class MeFragment : Fragment(R.layout.me_page){
             }
         }
     private val apiService = RetrofitManager.getInstance().provideApiService()
-
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -124,6 +123,11 @@ class MeFragment : Fragment(R.layout.me_page){
         binding.meCircularImageView.setOnClickListener{
            showPopupMenu(it)
         }
+
+        val sharedPreferencesManager = SharedPreferencesManager.getInstance(requireContext())
+        Glide.with(this@MeFragment)
+            .load(sharedPreferencesManager.userAvatar)
+            .into(binding.meCircularImageView)
 
     }
 
