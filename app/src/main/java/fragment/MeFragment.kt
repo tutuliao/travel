@@ -22,7 +22,6 @@ import com.example.myapplication.AccountChangeActivity
 import com.example.myapplication.PasswordChangeActivity
 import com.example.myapplication.databinding.MePageBinding
 import http.RetrofitManager
-import okhttp3.Callback
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody

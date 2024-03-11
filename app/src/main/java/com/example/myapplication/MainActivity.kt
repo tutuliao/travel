@@ -4,14 +4,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import com.example.myapplication.databinding.ActivityMainBinding
-import fragment.CommunityFragment
+import fragment.CollectFragment
 import fragment.HomeFragment
 
 
 
 class MainActivity : AppCompatActivity() {
     private val homeFragment = HomeFragment()
-    private val communityFragment = CommunityFragment()
+    private val collectFragment = CollectFragment()
     private val meFragment = MeFragment()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.navigation_hotel -> {
                         supportFragmentManager.beginTransaction()
-                            .replace(R.id.fragment_container, communityFragment)
+                            .replace(R.id.fragment_container, collectFragment)
                             .commit()
                     true
                 }
