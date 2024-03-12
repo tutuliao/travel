@@ -44,7 +44,16 @@
             android:layout_height="0dp"
             android:layout_weight="3"
             android:background="@color/white">
+            <com.scwang.smart.refresh.layout.SmartRefreshLayout
+                android:id="@+id/smartRefresh"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
+                </TextView>
+            </com.scwang.smart.refresh.layout.SmartRefreshLayout>
         </RelativeLayout>
 
     </LinearLayout>

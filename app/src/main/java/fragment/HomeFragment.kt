@@ -204,7 +204,7 @@ class BannerAdapter(private val context: Context, private val images: List<Int>)
 }
 
 //RecyclerView 的适配器
-class RecyclerViewAdapter(private val context: Context, private val list: MutableList<Activity>) : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder>() {
+open class RecyclerViewAdapter(private val context: Context, private val list: MutableList<Activity>) : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder>() {
     private var inflater: View? = null
 
     // onCreateViewHolder()方法用于创建ViewHolder实例
