@@ -34,7 +34,7 @@ class LoginActivity: AppCompatActivity() {
 
         val sharedPreferencesManager = SharedPreferencesManager.getInstance(applicationContext)
         val apiService = RetrofitManager.getInstance().provideApiService()
-        val token = sharedPreferencesManager.userToken
+        val token = sharedPreferencesManager.getUserToken()
         if (token.isNotEmpty()) {
             startActivity(Intent(this, MainActivity::class.java))
             finish()  // 结束当前的 LoginActivity，防止用户回退到此页面

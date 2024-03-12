@@ -1,6 +1,5 @@
 package http
 import io.reactivex.Observable
-import model.UserManager
 import okhttp3.Interceptor
 import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
@@ -19,7 +18,8 @@ import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
 import retrofit2.http.Query
-import java.io.File
+import service.MyApp
+import service.SharedPreferencesManager
 import java.io.IOException
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
@@ -96,7 +96,8 @@ class TokenInterceptor : Interceptor {
     private fun getToken(): String? {
         // 这里实现获取Token的逻辑，可能是从SharedPreferences, 数据库等地方获取
         // 示例返回值，实际应用中应从您的存储机制中获取
-        return UserManager.getInstance().getLoginResponse()?.data?.token // 请替换为实际获取Token的逻辑
+        val sharedPreferencesManager = SharedPreferencesManager.getInstance(MyApp.getContext())
+        return sharedPreferencesManager.userToken // 请替换为实际获取Token的逻辑
     }
 }
 

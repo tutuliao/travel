@@ -39,6 +39,8 @@
     <dimen name="collect_num_top">40dp</dimen>
     <dimen name="collect_text_left">20dp</dimen>
     <dimen name="collect_text_top">0dp</dimen>
+    <dimen name="collect_recyclerViewAdapter_left">8dp</dimen>
+    <dimen name="collect_recyclerViewAdapter_right">8dp</dimen>
 
     <!-- 定义字体尺寸 -->
     <dimen name="me_small_size">12sp</dimen>

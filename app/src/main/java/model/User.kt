@@ -1,5 +1,7 @@
 package model
 
+import service.SharedPreferencesManager
+
 data class UserResponse(
       val httpStatus: Int,
       val code: Int,

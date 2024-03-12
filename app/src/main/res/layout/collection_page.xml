@@ -48,11 +48,12 @@
                 android:id="@+id/smartRefresh"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-                <TextView
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                </TextView>
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/collect_recyclerViewAdapter_left"
+                    android:layout_marginEnd="@dimen/collect_recyclerViewAdapter_right"/>
             </com.scwang.smart.refresh.layout.SmartRefreshLayout>
         </RelativeLayout>
 
