@@ -91,6 +91,7 @@ class CollectFragment : Fragment(R.layout.collection_page){
                         itemCollectedResponse.data.forEach { activityCollected ->
                             list.add(activityCollected)
                         }
+                        binding.collectNumber.text = list.size.toString()
                         recyclerAdapter.notifyItemRangeChanged(0, list.size)
                     }
                 } else {
