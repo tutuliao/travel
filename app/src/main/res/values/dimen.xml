@@ -37,10 +37,12 @@
 
     <dimen name="collect_num_left">20dp</dimen>
     <dimen name="collect_num_top">40dp</dimen>
-    <dimen name="collect_text_left">20dp</dimen>
     <dimen name="collect_text_top">0dp</dimen>
+    <dimen name="collect_text_left">20dp</dimen>
+    <dimen name="collect_text_bottom">4dp</dimen>
     <dimen name="collect_recyclerViewAdapter_left">8dp</dimen>
     <dimen name="collect_recyclerViewAdapter_right">8dp</dimen>
+
 
     <!-- 定义字体尺寸 -->
     <dimen name="me_small_size">12sp</dimen>
@@ -63,6 +65,7 @@
     <dimen name="collect_num_size">56sp</dimen>
     <dimen name="collect_text_size">20sp</dimen>
 
+
     <!-- 定义长宽 -->
     <dimen name="me_icon_height">100dp</dimen>
     <dimen name="me_icon_width">100dp</dimen>
@@ -81,4 +84,9 @@
     <dimen name="home_item_icon_width">60dp</dimen>
     <dimen name="home_item_love_height">40dp</dimen>
     <dimen name="home_item_love_width">40dp</dimen>
+
+
+    <dimen name="collect_icon_width">150dp</dimen>
+    <dimen name="collect_icon_height">150dp</dimen>
+    <dimen name="collect_item_radius">6dp</dimen>
 </resources>

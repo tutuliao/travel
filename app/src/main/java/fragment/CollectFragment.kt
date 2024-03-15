@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.myapplication.R
 import com.example.myapplication.databinding.CollectionPageBinding
 import com.scwang.smart.refresh.footer.ClassicsFooter
@@ -111,7 +113,8 @@ class CollectRecyclerViewAdapter(private val context: Context,
 ) : RecyclerView.Adapter<CollectRecyclerViewAdapter.MyViewHolder>(){
 
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val titleView : TextView = itemView.findViewById(R.id.title_view)
+        val collectTitle : TextView = itemView.findViewById(R.id.collect_title)
+        val collectIcon : ImageView = itemView.findViewById(R.id.collect_image)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -125,6 +128,7 @@ class CollectRecyclerViewAdapter(private val context: Context,
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.titleView.text = list[position].title
+        holder.collectTitle.text = list[position].title
+        Glide.with(context).load(list[position].image).into(holder.collectIcon)
     }
 }
