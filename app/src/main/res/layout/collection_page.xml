@@ -4,8 +4,11 @@
     <data>
 
     </data>
-
-    <LinearLayout
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout
+        android:id="@+id/smartRefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -45,18 +48,14 @@
             android:layout_height="0dp"
             android:layout_weight="3"
             android:background="@color/white">
-            <com.scwang.smart.refresh.layout.SmartRefreshLayout
-                android:id="@+id/smartRefresh"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/collect_recyclerViewAdapter_left"
                     android:layout_marginEnd="@dimen/collect_recyclerViewAdapter_right"/>
-            </com.scwang.smart.refresh.layout.SmartRefreshLayout>
         </RelativeLayout>
 
-    </LinearLayout>
+     </LinearLayout>
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 </layout>

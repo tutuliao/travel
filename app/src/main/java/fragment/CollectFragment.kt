@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
@@ -57,16 +58,13 @@ class CollectFragment : Fragment(R.layout.collection_page){
 
         recyclerView = binding.recyclerView
         recyclerAdapter = CollectRecyclerViewAdapter(requireContext(),list)
-        val manager = LinearLayoutManager(context)
-        manager.orientation = LinearLayoutManager.VERTICAL;
-        recyclerView.layoutManager = manager;
+        // 创建 GridLayoutManager，指定每行有3个项目
+        val layoutManager = GridLayoutManager(requireContext(), 2)
+        recyclerView.layoutManager = layoutManager;
         recyclerView.adapter = recyclerAdapter;
         binding.smartRefresh.setRefreshHeader(ClassicsHeader(context))
         binding.smartRefresh.setRefreshFooter(ClassicsFooter(context))
         binding.smartRefresh.setOnRefreshListener{
-
-        }
-        binding.smartRefresh.setOnLoadMoreListener {
 
         }
 
