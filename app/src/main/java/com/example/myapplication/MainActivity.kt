@@ -8,13 +8,14 @@ import com.example.myapplication.databinding.ActivityMainBinding
 
 import fragment.CollectFragment
 import fragment.HomeFragment
-
+import fragment.SearchFragment
 
 
 class MainActivity : AppCompatActivity() {
     private val homeFragment = HomeFragment()
     private val collectFragment = CollectFragment()
     private val meFragment = MeFragment()
+    private val searchFragment = SearchFragment()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding: ActivityMainBinding = DataBindingUtil.setContentView(
@@ -52,7 +53,13 @@ class MainActivity : AppCompatActivity() {
                         .commit()
                     true
                 }
-
+                
+                R.id.navigation_search ->{
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, searchFragment)
+                        .commit()
+                    true
+                }
                 else -> {false}
             }
         }

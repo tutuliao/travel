@@ -70,7 +70,6 @@ class CollectFragment : Fragment(R.layout.collection_page){
         }
 
         loadData(index)
-
     }
 
     override fun onStart() {

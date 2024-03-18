@@ -85,7 +85,6 @@
     <dimen name="home_item_love_height">40dp</dimen>
     <dimen name="home_item_love_width">40dp</dimen>
 
-
     <dimen name="collect_icon_width">150dp</dimen>
     <dimen name="collect_icon_height">150dp</dimen>
     <dimen name="collect_item_radius">6dp</dimen>

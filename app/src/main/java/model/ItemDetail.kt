@@ -1,5 +1,7 @@
 package model
 
+import androidx.camera.core.processing.SurfaceProcessorNode.In
+
 
 data class ItemDetailResponse(
     val httpStatus: Int,
@@ -15,12 +17,14 @@ data class ItemDetail(
     val endTime: String?,
     val address: String,
     val fee: Double,
-    val imageIds: List<Int> // 假设 imageIds 是整型列表，即使列表为空
+    val status: Int,
+    val image1: String,
+    val image2: String
 )
 
 class ItemDetailManager {
       private var itemDetailResponse:ItemDetailResponse = ItemDetailResponse(200,200,"", data = ItemDetail(1,"","","","","",1.0,
-          listOf()
+          0,"",""
       )
     )
 

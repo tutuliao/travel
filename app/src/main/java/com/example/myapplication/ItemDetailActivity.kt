@@ -1,6 +1,8 @@
 package com.example.myapplication
+import android.content.Context
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
+import com.bumptech.glide.Glide
 import com.example.myapplication.databinding.ActivityItemDetailBinding
 import http.RetrofitManager
 import io.reactivex.Observer
@@ -37,6 +39,7 @@ class ItemDetailActivity : BaseActivity() {
                         val itemDetailResponse = GsonSingleton.gson.fromJson(responseBody, ItemDetailResponse::class.java)
                         ItemDetailManager.getInstance().setItemDetailResponse(itemDetailResponse)
                         binding.itemText.text = ItemDetailManager.getInstance().getItemDetailResponse().data.content
+                        Glide.with(this@ItemDetailActivity).load(ItemDetailManager.getInstance().getItemDetailResponse().data.image1).into(binding.itemDetailPicture)
                         setTitleText(ItemDetailManager.getInstance().getItemDetailResponse().data.title)
                     } else {
                         Toast.showToast(this@ItemDetailActivity, "加载失败")
