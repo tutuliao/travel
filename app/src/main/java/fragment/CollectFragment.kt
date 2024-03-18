@@ -40,7 +40,6 @@ class CollectFragment : Fragment(R.layout.collection_page){
     private lateinit var binding: CollectionPageBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         list.clear()
-        loadData(index)
         super.onCreate(savedInstanceState)
     }
 
@@ -57,7 +56,7 @@ class CollectFragment : Fragment(R.layout.collection_page){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        smartRefreshLayout = binding.smartRefresh
         recyclerView = binding.recyclerView
         recyclerAdapter = CollectRecyclerViewAdapter(requireContext(),list)
         // 创建 GridLayoutManager，指定每行有3个项目
@@ -69,6 +68,8 @@ class CollectFragment : Fragment(R.layout.collection_page){
         binding.smartRefresh.setOnRefreshListener{
 
         }
+
+        loadData(index)
 
     }
 

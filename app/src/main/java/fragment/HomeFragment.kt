@@ -140,9 +140,14 @@ class HomeFragment : Fragment(R.layout.home_page){
             }, { error ->
                 if ((error is HttpException) && (error.code() >= 500)) {
                     // 处理HTTP错误，例如跳转到登录页面
+                    val sharedPreferencesManager = SharedPreferencesManager.getInstance(requireContext())
+                    sharedPreferencesManager.resetUserToken(null)
                     startActivity(Intent(requireContext(), LoginActivity::class.java))
                 } else {
                     // 处理其他类型的错误
+                    val sharedPreferencesManager = SharedPreferencesManager.getInstance(requireContext())
+                    sharedPreferencesManager.resetUserToken(null)
+                    startActivity(Intent(requireContext(), LoginActivity::class.java))
                     Toast.showToast(requireContext(), "网络请求失败")
                 }
             })
