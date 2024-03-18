@@ -64,7 +64,7 @@ interface ApiService {
     @GET("activity/list")
     fun getList(
         @Query("index") index: Int
-    ): Call<ResponseBody>
+    ): Observable<Response<ResponseBody>>
 
     @GET("activity/detail")
     fun getItemDetail(

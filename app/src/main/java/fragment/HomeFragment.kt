@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,18 +18,21 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.PagerAdapter
 import com.bumptech.glide.Glide
 import com.example.myapplication.ItemDetailActivity
+import com.example.myapplication.LoginActivity
 import com.example.myapplication.R
 import com.example.myapplication.databinding.HomePageBinding
 import com.scwang.smart.refresh.footer.ClassicsFooter
 import com.scwang.smart.refresh.header.ClassicsHeader
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import http.RetrofitManager
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import model.Activity
 import model.ItemListManager
 import model.ItemResponse
-import okhttp3.ResponseBody
-import retrofit2.Call
-import retrofit2.Response
+import retrofit2.HttpException
+import service.SharedPreferencesManager
 import service.Toast
 import java.util.Timer
 import java.util.TimerTask
@@ -47,10 +51,11 @@ class HomeFragment : Fragment(R.layout.home_page){
     private val DELAY_MS: Long = 500 // 延迟时间，在开始轮播前等待的时间
     private val PERIOD_MS: Long = 2000 // 周期时间，每隔多久轮播一次
     private val images = listOf(R.drawable.hotel1, R.drawable.hotel2, R.drawable.hotel3)
+    // 用于管理RxJava订阅的CompositeDisposable
+    private val disposables = CompositeDisposable()
     override fun onCreate(savedInstanceState: Bundle?) {
         list.clear()
         super.onCreate(savedInstanceState)
-        loadData(index)
     }
 
     private lateinit var binding: HomePageBinding
@@ -66,7 +71,6 @@ class HomeFragment : Fragment(R.layout.home_page){
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
 
         super.onViewCreated(view, savedInstanceState)
         //banner
@@ -99,69 +103,82 @@ class HomeFragment : Fragment(R.layout.home_page){
         }
 
         initBannerAutoScroll()
+        loadData(index)
     }
 
     override fun onStart() {
         super.onStart()
-        loadData(index)
         smartRefreshLayout.finishRefresh(1000)
     }
 
     override fun onDestroy() {
         timer?.cancel()
+        disposables.clear() // 取消所有订阅
         super.onDestroy()
     }
 
 
     private fun loadData(index: Int) {
-        apiService.getList(index).enqueue(object : retrofit2.Callback<ResponseBody> {
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+        val disposable = apiService.getList(index)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ response ->
                 if (response.isSuccessful) {
                     val responseBody = response.body()?.string()
-                    val itemResponse = GsonSingleton.gson.fromJson(responseBody,ItemResponse::class.java)
+                    val itemResponse = GsonSingleton.gson.fromJson(responseBody, ItemResponse::class.java)
                     ItemListManager.getInstance().setItemResponse(itemResponse)
-
-                    if(itemResponse.data==null){
-                        Toast.showToast(requireContext(),"数据加载完了")
-                        smartRefreshLayout.finishLoadMoreWithNoMoreData() // 通知没有更多数据可加载
-                    }else{
-                        itemResponse.data.forEach { activity ->
-                            list.add(activity)
-                        }
-                        recyclerAdapter.notifyItemRangeChanged(0, list.size)
-                    }
-                } else {
-                    Toast.showToast(requireContext(),"加载失败")
-                    smartRefreshLayout.finishLoadMoreWithNoMoreData()
-                }
-            }
-
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                // 处理网络请求失败的情况
-                Toast.showToast(requireContext(),"网络请求失败")
-            }
-        })
-    }
-
-    private fun refreshData(){
-        apiService.getList(0).enqueue(object : retrofit2.Callback<ResponseBody> {
-            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                if (response.isSuccessful) {
-                    val responseBody = response.body()?.string()
-                    val itemResponse =
-                        GsonSingleton.gson.fromJson(responseBody, ItemResponse::class.java)
-                    ItemListManager.getInstance().setItemResponse(itemResponse)
-                    itemResponse.data.forEach { activity ->
+                    itemResponse.data?.forEach { activity ->
                         list.add(activity)
-                        recyclerAdapter.notifyItemRangeChanged(0, list.size)
                     }
+                    recyclerAdapter.notifyDataSetChanged()
+                } else {
+                    val sharedPreferencesManager = SharedPreferencesManager.getInstance(requireContext())
+                    sharedPreferencesManager.resetUserToken(null)
+                    startActivity(Intent(requireContext(), LoginActivity::class.java))
+                    Toast.showToast(requireContext(), "token过期")
                 }
-            }
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                Toast.showToast(requireContext(),"网络请求失败")
-            }
-        })
+            }, { error ->
+                if ((error is HttpException) && (error.code() >= 500)) {
+                    // 处理HTTP错误，例如跳转到登录页面
+                    startActivity(Intent(requireContext(), LoginActivity::class.java))
+                } else {
+                    // 处理其他类型的错误
+                    Toast.showToast(requireContext(), "网络请求失败")
+                }
+            })
+
+        // 添加到CompositeDisposable中
+        disposables.add(disposable)
     }
+
+    private fun refreshData() {
+        // 这里假设 disposables 是一个 CompositeDisposable 实例，用于管理RxJava订阅
+        val disposable = apiService.getList(0)
+            .subscribeOn(Schedulers.io()) // 在 IO 线程执行网络请求
+            .observeOn(AndroidSchedulers.mainThread()) // 在主线程处理请求结果
+            .subscribe({ response ->
+                // onResponse
+                if (response.isSuccessful) {
+                    val responseBody = response.body()?.string()
+                    val itemResponse = GsonSingleton.gson.fromJson(responseBody, ItemResponse::class.java)
+                    ItemListManager.getInstance().setItemResponse(itemResponse)
+                    itemResponse.data?.forEach { activity ->
+                        list.add(activity)
+                    }
+                    recyclerAdapter.notifyDataSetChanged() // 通知数据改变
+                } else {
+                    // 处理错误响应
+                    Toast.showToast(requireContext(), "加载失败")
+                }
+            }, { error ->
+                // onFailure
+                Toast.showToast(requireContext(), "网络请求失败: ${error.message}")
+            })
+
+        // 将订阅添加到 CompositeDisposable 中
+        disposables.add(disposable)
+    }
+
 
     private fun initBannerAutoScroll() {
         val handler = Handler(Looper.getMainLooper())
