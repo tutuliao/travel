@@ -12,8 +12,13 @@
         android:icon="@drawable/hotel" />
 
     <item
+        android:id="@+id/navigation_search"
+        android:title="@string/search"
+        android:icon="@drawable/search"
+        />
+    
+    <item
         android:id="@+id/navigation_me"
         android:title="@string/me_name"
         android:icon="@drawable/my" />
-
 </menu>
