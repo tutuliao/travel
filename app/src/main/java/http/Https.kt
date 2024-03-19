@@ -76,6 +76,11 @@ interface ApiService {
         @Query("index") index: Int
     ):Call<ResponseBody>
 
+    @GET("activity/search")
+    fun getSearchList(
+        @Query("title") title: String,
+        @Query("index") index: Int
+    ): Observable<Response<ResponseBody>>
 
 }
 class TokenInterceptor : Interceptor {

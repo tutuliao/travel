@@ -28,6 +28,9 @@ class SearchFragment : Fragment(R.layout.search_page){
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding.searchButton.setOnClickListener{
+
+        }
         super.onViewCreated(view, savedInstanceState)
     }
 
