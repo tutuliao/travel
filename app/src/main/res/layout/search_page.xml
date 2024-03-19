@@ -9,13 +9,63 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/grey1">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="hhhh">
+        android:background="@color/white">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/search_text"
+                android:text="民俗管理系统"
+                android:textSize="@dimen/search_text_size"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:gravity="center">
 
-        </TextView>
+            </TextView>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <EditText
+                    android:layout_width="@dimen/search_input_width"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/search_input"
+                    android:maxLines="1"
+                    android:maxLength="9"
+                    android:hint="搜索"
+                    android:gravity="center"
+                    android:layout_gravity="bottom"
+                    android:layout_marginStart="@dimen/search_input_left"
+                    android:textSize="@dimen/search_input_text_size"
+                    android:background="@drawable/input_border">
+
+                </EditText>
+
+                <ImageView
+                    android:id="@+id/search_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/search"
+                    android:background="?attr/selectableItemBackgroundBorderless"/>
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="7">
+
+        </RelativeLayout>
 
     </LinearLayout>
 </layout>

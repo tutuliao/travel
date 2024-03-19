@@ -43,6 +43,7 @@
     <dimen name="collect_recyclerViewAdapter_left">8dp</dimen>
     <dimen name="collect_recyclerViewAdapter_right">8dp</dimen>
 
+    <dimen name="search_input_left">70dp</dimen>
 
     <!-- 定义字体尺寸 -->
     <dimen name="me_small_size">12sp</dimen>
@@ -65,6 +66,8 @@
     <dimen name="collect_num_size">56sp</dimen>
     <dimen name="collect_text_size">20sp</dimen>
 
+    <dimen name="search_text_size">32sp</dimen>
+    <dimen name="search_input_text_size">24sp</dimen>
 
     <!-- 定义长宽 -->
     <dimen name="me_icon_height">100dp</dimen>
@@ -88,4 +91,8 @@
     <dimen name="collect_icon_width">150dp</dimen>
     <dimen name="collect_icon_height">150dp</dimen>
     <dimen name="collect_item_radius">6dp</dimen>
+
+    <dimen name="search_input_width">250dp</dimen>
+    <dimen name="search_bottom_width">20dp</dimen>
+    <dimen name="search_bottom_height">20dp</dimen>
 </resources>
