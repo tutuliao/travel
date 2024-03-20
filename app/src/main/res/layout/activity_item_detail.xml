@@ -37,9 +37,17 @@
                 android:id="@+id/item_text"
                 android:layout_marginStart="@dimen/item_detail_text_left"
                 android:layout_marginEnd="@dimen/item_detail_text_right"
-                android:textSize="@dimen/item_detail_large_size"
-                android:text="hhh">
+                android:textSize="@dimen/item_detail_large_size">
             </TextView>
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/collect_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/item_detail_collect_bottom_right"
+                android:src="@drawable/unloved"
+                />
         </RelativeLayout>
     </LinearLayout>
 </layout>

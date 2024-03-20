@@ -61,6 +61,12 @@ interface ApiService {
         @Part file: MultipartBody.Part
     ): Call<ResponseBody>
 
+    @FormUrlEncoded
+    @POST("activity/collect")
+    fun collectActivity(
+        @Field("activityId") activityId: Int
+    ): Observable<Response<ResponseBody>>
+
     @GET("activity/list")
     fun getList(
         @Query("index") index: Int
