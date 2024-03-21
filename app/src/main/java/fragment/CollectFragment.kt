@@ -1,5 +1,7 @@
 package fragment
+
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.myapplication.ItemDetailActivity
 import com.example.myapplication.R
 import com.example.myapplication.databinding.CollectionPageBinding
 import com.scwang.smart.refresh.footer.ClassicsFooter
@@ -26,9 +29,9 @@ import retrofit2.Call
 import retrofit2.Response
 import service.Toast
 
-class CollectFragment : Fragment(R.layout.collection_page){
+class CollectFragment : Fragment(R.layout.collection_page) {
 
-    private lateinit var smartRefreshLayout : SmartRefreshLayout
+    private lateinit var smartRefreshLayout: SmartRefreshLayout
 
     private var list: MutableList<ActivityCollected> = mutableListOf()
     private var apiService = RetrofitManager.getInstance().provideApiService()
@@ -58,14 +61,14 @@ class CollectFragment : Fragment(R.layout.collection_page){
         super.onViewCreated(view, savedInstanceState)
         smartRefreshLayout = binding.smartRefresh
         recyclerView = binding.recyclerView
-        recyclerAdapter = CollectRecyclerViewAdapter(requireContext(),list)
+        recyclerAdapter = CollectRecyclerViewAdapter(requireContext(), list)
         // 创建 GridLayoutManager，指定每行有3个项目
         val layoutManager = GridLayoutManager(requireContext(), 2)
         recyclerView.layoutManager = layoutManager;
         recyclerView.adapter = recyclerAdapter;
         binding.smartRefresh.setRefreshHeader(ClassicsHeader(context))
         binding.smartRefresh.setRefreshFooter(ClassicsFooter(context))
-        binding.smartRefresh.setOnRefreshListener{
+        binding.smartRefresh.setOnRefreshListener {
 
         }
 
@@ -81,13 +84,15 @@ class CollectFragment : Fragment(R.layout.collection_page){
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if (response.isSuccessful) {
                     val responseBody = response.body()?.string()
-                    val itemCollectedResponse = GsonSingleton.gson.fromJson(responseBody, ItemCollectedResponse::class.java)
-                    ItemCollectedListManager.getInstance().setItemCollectedResponse(itemCollectedResponse)
+                    val itemCollectedResponse =
+                        GsonSingleton.gson.fromJson(responseBody, ItemCollectedResponse::class.java)
+                    ItemCollectedListManager.getInstance()
+                        .setItemCollectedResponse(itemCollectedResponse)
 
-                    if(itemCollectedResponse.data==null){
-                        Toast.showToast(requireContext(),"数据加载完了")
+                    if (itemCollectedResponse.data == null) {
+                        Toast.showToast(requireContext(), "数据加载完了")
                         smartRefreshLayout.finishLoadMoreWithNoMoreData() // 通知没有更多数据可加载
-                    }else{
+                    } else {
                         itemCollectedResponse.data.forEach { activityCollected ->
                             list.add(activityCollected)
                         }
@@ -95,31 +100,32 @@ class CollectFragment : Fragment(R.layout.collection_page){
                         recyclerAdapter.notifyItemRangeChanged(0, list.size)
                     }
                 } else {
-                    Toast.showToast(requireContext(),"加载失败")
+                    Toast.showToast(requireContext(), "加载失败")
                     smartRefreshLayout.finishLoadMoreWithNoMoreData()
                 }
             }
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 // 处理网络请求失败的情况
-                Toast.showToast(requireContext(),"网络请求失败")
+                Toast.showToast(requireContext(), "网络请求失败")
             }
         })
     }
 }
 
-class CollectRecyclerViewAdapter(private val context: Context,
-                                 private val list: MutableList<ActivityCollected>
-) : RecyclerView.Adapter<CollectRecyclerViewAdapter.MyViewHolder>(){
+class CollectRecyclerViewAdapter(
+    private val context: Context,
+    private val list: MutableList<ActivityCollected>
+) : RecyclerView.Adapter<CollectRecyclerViewAdapter.MyViewHolder>() {
 
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val collectTitle : TextView = itemView.findViewById(R.id.collect_title)
-        val collectIcon : ImageView = itemView.findViewById(R.id.collect_image)
+        val collectTitle: TextView = itemView.findViewById(R.id.collect_title)
+        val collectIcon: ImageView = itemView.findViewById(R.id.collect_image)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val inflater = LayoutInflater.from(context)
-        val view = inflater.inflate(R.layout.collection_item,parent,false)
+        val view = inflater.inflate(R.layout.collection_item, parent, false)
         return MyViewHolder(view)
     }
 
@@ -130,5 +136,11 @@ class CollectRecyclerViewAdapter(private val context: Context,
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.collectTitle.text = list[position].title
         Glide.with(context).load(list[position].image).into(holder.collectIcon)
+        holder.itemView.setOnClickListener {
+            val intent = Intent(context, ItemDetailActivity::class.java).apply {
+                putExtra("ITEM_ID", list[position].id)
+            }
+            context.startActivity(intent)
+        }
     }
 }
