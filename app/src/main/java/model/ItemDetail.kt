@@ -19,12 +19,13 @@ data class ItemDetail(
     val fee: Double,
     val status: Int,
     val image1: String,
-    val image2: String
+    val image2: String,
+    val isCollected : Boolean
 )
 
 class ItemDetailManager {
       private var itemDetailResponse:ItemDetailResponse = ItemDetailResponse(200,200,"", data = ItemDetail(1,"","","","","",1.0,
-          0,"",""
+          0,"","",false
       )
     )
 

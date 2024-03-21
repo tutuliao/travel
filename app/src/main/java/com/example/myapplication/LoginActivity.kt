@@ -1,4 +1,5 @@
 package com.example.myapplication
+
 import GsonSingleton
 import android.content.Intent
 import android.os.Bundle
@@ -19,7 +20,7 @@ import service.SharedPreferencesManager
 import service.Toast
 
 
-class LoginActivity: AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
 
     private lateinit var accountText: EditText
     private lateinit var passwordText: EditText
@@ -27,24 +28,25 @@ class LoginActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        val binding : ActivityLoginBinding = DataBindingUtil.setContentView(this,R.layout.activity_login)
-        accountText = findViewById(R.id.login_account)                   
+        val binding: ActivityLoginBinding =
+            DataBindingUtil.setContentView(this, R.layout.activity_login)
+        accountText = findViewById(R.id.login_account)
         passwordText = findViewById(R.id.login_password)  // 读取输入框内的内容 先绑定 R.layout后才能找到输入框
         supportActionBar?.hide() //隐藏actionbar
 
         val sharedPreferencesManager = SharedPreferencesManager.getInstance(applicationContext)
         val apiService = RetrofitManager.getInstance().provideApiService()
         val token = sharedPreferencesManager.userToken
-        if (token.isNotEmpty()&&token.isNotBlank()&&token!="") {
+        if (token.isNotEmpty() && token.isNotBlank() && token != "") {
             startActivity(Intent(this, MainActivity::class.java))
             finish()  // 结束当前的 LoginActivity，防止用户回退到此页面
-                     //return   退出 onCreate，避免继续执行后面的初始化代码
+            //return   退出 onCreate，避免继续执行后面的初始化代码
         }
 
-        binding.loginBottom.setOnClickListener{
-            val username =  accountText.text.toString()
-            val password =  passwordText.text.toString()
-            apiService.login(username,password)
+        binding.loginBottom.setOnClickListener {
+            val username = accountText.text.toString()
+            val password = passwordText.text.toString()
+            apiService.login(username, password)
                 .subscribeOn(Schedulers.io()) // IO 线程执行网络请求
                 .observeOn(AndroidSchedulers.mainThread()) // 主线程更新数据
                 .subscribe(object : Observer<Response<ResponseBody>> {
@@ -55,14 +57,21 @@ class LoginActivity: AppCompatActivity() {
                     override fun onNext(response: Response<ResponseBody>) {
                         // 登录成功后的操作
                         if (response.isSuccessful) {
-                            Toast.showToast(this@LoginActivity,"登录成功")
+                            Toast.showToast(this@LoginActivity, "登录成功")
                             val responseBody = response.body()?.string()
-                            val loginResponse = GsonSingleton.gson.fromJson(responseBody,UserResponse::class.java)
+                            val loginResponse =
+                                GsonSingleton.gson.fromJson(responseBody, UserResponse::class.java)
                             UserManager.getInstance().setLoginResponse(loginResponse)
 
-                            sharedPreferencesManager.resetUserName(UserManager.getInstance().getLoginResponse()?.data?.username)
-                            sharedPreferencesManager.resetUserToken(UserManager.getInstance().getLoginResponse()?.data?.token)
-                            sharedPreferencesManager.resetUserAvatar(UserManager.getInstance().getLoginResponse()?.data?.avatar)
+                            sharedPreferencesManager.resetUserName(
+                                UserManager.getInstance().getLoginResponse()?.data?.username
+                            )
+                            sharedPreferencesManager.resetUserToken(
+                                UserManager.getInstance().getLoginResponse()?.data?.token
+                            )
+                            sharedPreferencesManager.resetUserAvatar(
+                                UserManager.getInstance().getLoginResponse()?.data?.avatar
+                            )
 
                             UserManager.getInstance().getLoginResponse()?.data?.id?.let { it1 ->
                                 sharedPreferencesManager.resetUserId(
@@ -77,7 +86,7 @@ class LoginActivity: AppCompatActivity() {
                             startActivity(intent)
 
                         } else {
-                            Toast.showToast(this@LoginActivity,"登录失败")
+                            Toast.showToast(this@LoginActivity, "登录失败")
 
                         }
                     }
@@ -92,12 +101,12 @@ class LoginActivity: AppCompatActivity() {
                         // 完成时的操作
                     }
                 })
-            }
+        }
 
-         binding.registerBottom.setOnClickListener {
+        binding.registerBottom.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
-         }
+        }
 
-       }
     }
+}
