@@ -96,19 +96,19 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/home_item_love"
+                <TextView
+                    android:id="@+id/home_item_fee"
+                    android:text="0$"
                     android:layout_width="@dimen/home_item_love_width"
                     android:layout_height="@dimen/home_item_love_height"
-                    android:src="@drawable/unloved"
+                    android:textSize="@dimen/home_item_large_size"
                     android:scaleType="centerCrop"
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/home_love_left"
                     android:layout_marginEnd="@dimen/home_love_right"
-                    android:layout_marginTop="@dimen/home_love_top"
-                    android:shape="oval">
+                    android:layout_marginTop="@dimen/home_love_top">
+                </TextView>
 
-                </ImageView>
 
             </LinearLayout>
         </LinearLayout>

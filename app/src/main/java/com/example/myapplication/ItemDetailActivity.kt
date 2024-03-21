@@ -72,7 +72,7 @@ class ItemDetailActivity : BaseActivity() {
     // 假设isCollected变量已经根据网络请求正确设置
     private fun updateCollectButtonState() {
         if (isCollected) {
-            binding.collectButton.setImageResource(R.drawable.loved)
+            binding.collectButton.setImageResource(R.drawable.loved2)
             binding.collectButton.setOnClickListener {
                 unCollectItem()
             }

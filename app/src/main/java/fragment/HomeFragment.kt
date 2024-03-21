@@ -239,6 +239,7 @@ open class RecyclerViewAdapter(private val context: Context, private val list: M
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.titleView.text = list[position].title
         holder.textView.text = list[position].content
+        holder.feeView.text = "${list[position].fee.toInt()}$"
         // 使用 Glide 加载网络图片
         Glide.with(context)
             .load(list[position].image) // 假设是 activityItem 对象的 imageUrl 属性
@@ -261,9 +262,10 @@ open class RecyclerViewAdapter(private val context: Context, private val list: M
 
     // 内部类，绑定控件
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var titleView: TextView = itemView.findViewById(R.id.title_view)
+        var titleView : TextView = itemView.findViewById(R.id.title_view)
         var textView : TextView = itemView.findViewById(R.id.text_view)
         var pictureView : ImageView = itemView.findViewById(R.id.home_item_picture)
+        val feeView : TextView = itemView.findViewById(R.id.home_item_fee)
     }
 
 }
