@@ -237,7 +237,6 @@ class RecyclerViewAdapter(private val context: Context, private val list: Mutabl
     // onBindViewHolder()方法用于对RecyclerView子项数据进行赋值
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.titleView.text = list[position].title
-        holder.textView.text = list[position].content
         holder.feeView.text = "${list[position].fee.toInt()}$"
         // 使用 Glide 加载网络图片
         Glide.with(context)
@@ -262,7 +261,6 @@ class RecyclerViewAdapter(private val context: Context, private val list: Mutabl
     // 内部类，绑定控件
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var titleView : TextView = itemView.findViewById(R.id.title_view)
-        var textView : TextView = itemView.findViewById(R.id.text_view)
         var pictureView : ImageView = itemView.findViewById(R.id.home_item_picture)
         val feeView : TextView = itemView.findViewById(R.id.home_item_fee)
     }
