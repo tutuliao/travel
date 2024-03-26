@@ -6,5 +6,6 @@ data class ChatAiMessageResponse(
     val data : Message
 )
 data class Message(
-    val msg: String
+    val msg: String,
+    val isUser: Boolean
 )
