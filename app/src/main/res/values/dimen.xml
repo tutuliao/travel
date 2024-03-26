@@ -46,6 +46,8 @@
     <dimen name="search_input_left">70dp</dimen>
     <dimen name="search_item_left">8dp</dimen>
     <dimen name="search_item_right">8dp</dimen>
+    <dimen name="search_ai_right">24dp</dimen>
+    <dimen name="search_ai_bottom">30dp</dimen>
 
     <!-- 定义字体尺寸 -->
     <dimen name="me_small_size">12sp</dimen>

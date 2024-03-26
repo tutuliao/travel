@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.bumptech.glide.Glide
+import com.example.myapplication.ChatAiActivity
 import com.example.myapplication.ItemDetailActivity
 import com.example.myapplication.LoginActivity
 import com.example.myapplication.R
@@ -103,6 +104,12 @@ class SearchFragment : Fragment(R.layout.search_page) {
                     }
                 })
         }
+
+        binding.ai.setOnClickListener{
+            val intent = Intent(context, ChatAiActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
 

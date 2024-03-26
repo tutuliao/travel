@@ -10,6 +10,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:background="@color/white">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -75,6 +76,17 @@
                     android:layout_marginStart="@dimen/search_item_left"
                     android:layout_marginEnd="@dimen/search_item_right" />
             </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/ai"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="@dimen/search_ai_right"
+                android:layout_marginBottom="@dimen/search_ai_bottom"
+                app:srcCompat="@drawable/chat" />
         </RelativeLayout>
 
     </LinearLayout>
