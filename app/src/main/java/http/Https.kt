@@ -73,6 +73,12 @@ interface ApiService {
         @Field("activityId") activityId: Int
     ): Observable<Response<ResponseBody>>
 
+    @FormUrlEncoded
+    @POST("user/chat")
+    fun chatAi(
+        @Field("msg") msg: String
+    ): Observable<Response<ResponseBody>>
+
     @GET("activity/list")
     fun getList(
         @Query("index") index: Int
