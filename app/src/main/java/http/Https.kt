@@ -189,9 +189,9 @@ class RetrofitManager private constructor() {
     // 因此你可以通过在 OkHttp 客户端中添加拦截器来为 Retrofit 添加拦截器。
     private val client: OkHttpClient by lazy {
         OkHttpClient.Builder()
-            .callTimeout(5, TimeUnit.SECONDS)
-            .connectTimeout(5, TimeUnit.SECONDS)  //连接超时时间
-            .readTimeout(5, TimeUnit.SECONDS)  //读取超时时间
+            .callTimeout(30, TimeUnit.SECONDS)
+            .connectTimeout(30, TimeUnit.SECONDS)  //连接超时时间
+            .readTimeout(30, TimeUnit.SECONDS)  //读取超时时间
             .addInterceptor(HttpsInterceptor())  // 添加拦截器
             .addInterceptor(TokenInterceptor())  // 添加TokenInterceptor
             .retryOnConnectionFailure(true)  //尝试重新连接

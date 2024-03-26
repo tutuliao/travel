@@ -1,9 +1,11 @@
 package com.example.myapplication
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
@@ -47,8 +49,17 @@ class ChatAiActivity : BaseActivity() {
         recyclerView.adapter = recyclerViewAdapter
 
         binding.sendButton.setOnClickListener {
-            text = editText.text.toString()
-            chat(text)
+            if(editText.text.isNotEmpty()){
+                text = editText.text.toString()
+                chat(text)
+                binding.messageEditText.text.clear()
+                // 隐藏键盘
+                val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                inputMethodManager.hideSoftInputFromWindow(editText.windowToken, 0)
+            }
+            else{
+                Toast.showToast(this@ChatAiActivity,"输入不能为空")
+            }
         }
     }
 
@@ -115,6 +126,5 @@ class ChatAdapter(private val messageList: MutableList<Message>) : RecyclerView.
     class MessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
          var aiMessage: TextView = itemView.findViewById(R.id.ai_message)
          var userMessage: TextView = itemView.findViewById(R.id.user_message)
-
     }
 }
