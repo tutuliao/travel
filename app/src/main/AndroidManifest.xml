@@ -31,7 +31,7 @@
         <activity
             android:name=".LoginActivity"
             android:exported="true"
-            android:launchMode="standard">
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -39,16 +39,19 @@
         </activity>
 
         <activity android:name=".RegisterActivity"
-            android:exported="true">
+            android:exported="true"
+            android:launchMode="singleTask">
         </activity>
 
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:launchMode="singleTask">
         </activity>
 
         <activity android:name=".AccountChangeActivity"
-                  android:exported="true">
+                  android:exported="true"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.AccountChange" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -56,7 +59,8 @@
         </activity>
 
         <activity android:name=".PasswordChangeActivity"
-            android:exported="true">
+            android:exported="true"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.PasswordChange" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -64,7 +68,8 @@
         </activity>
 
         <activity android:name=".ItemDetailActivity"
-                  android:exported="true">
+                  android:exported="true"
+                  android:launchMode="standard">
             <intent-filter>
                 <action android:name="android.intent.action.ItemDetail" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -73,7 +78,8 @@
 
         <activity android:name=".ChatAiActivity"
                   android:exported="true"
-                  android:windowSoftInputMode="adjustResize">
+                  android:windowSoftInputMode="adjustResize"
+                  android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.ChatAi" />
                 <category android:name="android.intent.category.DEFAULT" />
